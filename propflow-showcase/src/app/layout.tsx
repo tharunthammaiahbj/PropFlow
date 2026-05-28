@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Fraunces, Roboto } from "next/font/google";
+import { Source_Serif_4, Inter } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
   style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const roboto = Roboto({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
-  weight: ["300", "400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`dark ${fraunces.variable} ${roboto.variable}`}>
+    <html lang="en" className={`dark ${sourceSerif.variable} ${inter.variable}`}>
       <body>{children}</body>
     </html>
   );

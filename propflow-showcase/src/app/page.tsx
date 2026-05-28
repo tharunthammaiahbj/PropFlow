@@ -134,7 +134,7 @@ export default function HomePage() {
             >
               <span className="font-black text-[10px]" style={{ color: "#0d110d" }}>P</span>
             </div>
-            <span className="font-semibold text-sm tracking-tight" style={{ color: "var(--text)" }}>
+            <span className="font-display font-semibold text-base tracking-tight" style={{ color: "var(--text)" }}>
               PropFlow
             </span>
           </div>
@@ -396,7 +396,7 @@ export default function HomePage() {
             >
               <span className="font-black text-[9px]" style={{ color: "#0d110d" }}>P</span>
             </div>
-            <span className="text-xs font-medium" style={{ color: "var(--muted)" }}>PropFlow</span>
+            <span className="font-display text-xs font-medium" style={{ color: "var(--muted)" }}>PropFlow</span>
           </div>
           <span className="text-xs" style={{ color: "var(--muted)" }}>AI Intake Platform</span>
         </div>

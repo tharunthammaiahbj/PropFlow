@@ -286,7 +286,7 @@ export default function DemoContent() {
           >
             <span className="font-black text-[10px]" style={{ color: "#0d110d" }}>P</span>
           </div>
-          <span className="font-semibold tracking-tight text-sm">PropFlow</span>
+          <span className="font-display font-semibold tracking-tight text-base">PropFlow</span>
         </div>
         <div className="w-16" />
       </nav>
