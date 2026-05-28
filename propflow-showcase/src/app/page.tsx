@@ -174,11 +174,15 @@ export default function HomePage() {
             <div>
               <h1
                 className="font-display font-bold tracking-tight mb-8 fade-up-2"
-                style={{ fontSize: "clamp(2.9rem, 5.5vw, 5.25rem)", lineHeight: 1.06 }}
+                style={{
+                  fontSize: "clamp(2.9rem, 5.5vw, 5.25rem)",
+                  lineHeight: 1.06,
+                  color: "var(--text)",
+                }}
               >
                 Your AI consultant,
                 <br />
-                <span className="italic text-gradient">on every channel.</span>
+                <span className="accent-italic">&ldquo;on every channel.&rdquo;</span>
               </h1>
 
               <p

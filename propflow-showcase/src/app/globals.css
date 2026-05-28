@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --bg:       #0d110d;
-  --surface:  #131813;
-  --surface2: #182018;
-  --border:   #1f2d1f;
+  --bg:       #111411;
+  --surface:  #171b16;
+  --surface2: #1d231b;
+  --border:   #28301f;
   --accent:   #9ccc65;
-  --text:     #d4e6ca;
-  --muted:    #4e6848;
+  --text:     #f4f4ef;
+  --muted:    rgba(244, 244, 239, 0.4);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -23,7 +23,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Fraunces display typeface */
+/* Display serif (Source Serif 4) */
 .font-display {
   font-family: var(--font-display), Georgia, 'Times New Roman', serif;
   font-optical-sizing: auto;
@@ -31,13 +31,13 @@ body {
 
 /* Dot grid background */
 .bg-grid {
-  background-image: radial-gradient(circle, rgba(156,204,101,0.07) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: radial-gradient(circle, rgba(156,204,101,0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 /* Radial glow */
 .hero-glow {
-  background: radial-gradient(ellipse 72% 55% at 50% -8%, rgba(156,204,101,0.11) 0%, transparent 65%);
+  background: radial-gradient(ellipse 72% 55% at 50% -8%, rgba(156,204,101,0.10) 0%, transparent 65%);
 }
 
 /* Card */
@@ -47,7 +47,7 @@ body {
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .card:hover {
-  border-color: rgba(156,204,101,0.18);
+  border-color: rgba(156,204,101,0.22);
   box-shadow: 0 0 40px rgba(156,204,101,0.04);
 }
 
@@ -57,7 +57,7 @@ body {
   align-items: center;
   justify-content: center;
   background: var(--accent);
-  color: #0d110d;
+  color: #111411;
   font-weight: 600;
   font-family: var(--font-sans), system-ui, sans-serif;
   letter-spacing: -0.01em;
@@ -73,14 +73,14 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border);
-  color: var(--muted);
+  border: 1px solid rgba(244, 244, 239, 0.18);
+  color: rgba(244, 244, 239, 0.6);
   font-weight: 500;
   font-family: var(--font-sans), system-ui, sans-serif;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 .btn-ghost:hover {
-  border-color: rgba(156,204,101,0.22);
+  border-color: rgba(156,204,101,0.4);
   color: var(--text);
 }
 
@@ -88,8 +88,8 @@ body {
 .btn-nav {
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--border);
-  color: var(--muted);
+  border: 1px solid rgba(244, 244, 239, 0.18);
+  color: rgba(244, 244, 239, 0.7);
   font-size: 0.8rem;
   font-weight: 500;
   font-family: var(--font-sans), system-ui, sans-serif;
@@ -98,7 +98,7 @@ body {
   transition: border-color 0.2s, color 0.2s;
 }
 .btn-nav:hover {
-  border-color: rgba(156,204,101,0.28);
+  border-color: rgba(156,204,101,0.4);
   color: var(--text);
 }
 
@@ -132,20 +132,19 @@ body {
 .fade-up-4 { animation: fadeUp 0.75s 0.34s ease both; }
 .fade-up-5 { animation: fadeUp 0.75s 0.46s ease both; }
 
-/* Fraunces gradient text — italic for elegance */
-.text-gradient {
-  background: linear-gradient(100deg, #c8ea8c 0%, #9ccc65 50%, #77a83d 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Pure accent — no gradient, no fade. Italic emphasis text. */
+.accent-italic {
+  color: var(--accent);
+  font-style: italic;
+  font-family: var(--font-display), Georgia, serif;
 }
 
 /* Nav blur */
 .nav-blur {
-  background: rgba(13,17,13,0.92);
+  background: rgba(17, 20, 17, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(244, 244, 239, 0.08);
 }
 
 /* Monospace label */
@@ -163,14 +162,14 @@ body {
   font-size: 0.57rem;
   font-weight: 700;
   letter-spacing: 0.18em;
-  color: var(--muted);
+  color: rgba(244, 244, 239, 0.4);
 }
 
 /* Tag pill */
 .tag {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  color: var(--muted);
+  background: rgba(244, 244, 239, 0.04);
+  border: 1px solid rgba(244, 244, 239, 0.12);
+  color: rgba(244, 244, 239, 0.6);
   font-size: 0.68rem;
   font-weight: 500;
   padding: 0.28rem 0.65rem;
@@ -178,6 +177,6 @@ body {
   transition: border-color 0.2s, color 0.2s;
 }
 .tag:hover {
-  border-color: rgba(156,204,101,0.26);
+  border-color: rgba(156,204,101,0.4);
   color: var(--accent);
 }
