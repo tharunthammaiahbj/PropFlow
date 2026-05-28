@@ -5,6 +5,7 @@ without Twilio, webhooks, or any external dependencies.
 """
 from __future__ import annotations
 from datetime import datetime
+from typing import Optional
 
 from fastapi import APIRouter
 from pydantic import BaseModel
@@ -26,6 +27,7 @@ class WebMessageRequest(BaseModel):
 class WebMessageResponse(BaseModel):
     reply: str
     completed: bool = False
+    fields: Optional[dict] = None
 
 
 @router.post("/webhook/web", response_model=WebMessageResponse)
@@ -73,4 +75,34 @@ async def web_webhook(body: WebMessageRequest):
         )
 
     await save_session(response.session)
-    return WebMessageResponse(reply=response.text, completed=response.completed)
+
+    # Build project brief fields when the enquiry is complete
+    brief_fields: Optional[dict] = None
+    if response.completed and isinstance(response.session.extracted_fields, dict):
+        ef = response.session.extracted_fields
+        brief_fields = {}
+
+        # Service type from the Jessica routing stage
+        svc = str(ef.get("__wa:service_bucket") or "").strip()
+        if svc:
+            brief_fields["service"] = svc.title()
+
+        # All collected quest parameters
+        params_raw = ef.get(QUEST_PARAMETERS)
+        if isinstance(params_raw, dict):
+            _skip_keys = {"contact_pref", "callback_time"}
+            _skip_values = {"none", "null", "not specified", "not_specified", "web", "n/a", "na", ""}
+            for k, v in params_raw.items():
+                if k in _skip_keys:
+                    continue
+                val = v.get("value") if isinstance(v, dict) else v
+                if val is not None:
+                    sv = str(val).strip()
+                    if sv and sv.lower() not in _skip_values:
+                        brief_fields[k] = sv
+
+    return WebMessageResponse(
+        reply=response.text,
+        completed=response.completed,
+        fields=brief_fields if brief_fields else None,
+    )

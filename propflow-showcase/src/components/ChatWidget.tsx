@@ -10,6 +10,7 @@ interface Message {
 const STORAGE_KEY_MESSAGES = "propflow_demo_messages";
 const STORAGE_KEY_SESSION  = "propflow_demo_session_id";
 const STORAGE_KEY_DONE     = "propflow_demo_completed";
+const STORAGE_KEY_FIELDS   = "propflow_demo_fields";
 
 function generateSessionId(): string {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
@@ -29,7 +30,11 @@ function TypingIndicator() {
   );
 }
 
-export default function ChatWidget() {
+interface ChatWidgetProps {
+  onComplete?: (fields: Record<string, string>) => void;
+}
+
+export default function ChatWidget({ onComplete }: ChatWidgetProps) {
   const [messages,  setMessages]  = useState<Message[]>([]);
   const [sessionId, setSessionId] = useState<string>("");
   const [input,     setInput]     = useState("");
@@ -77,9 +82,15 @@ export default function ChatWidget() {
         body: JSON.stringify({ session_id: sessionId, message: text.trim() }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data: { reply: string; completed: boolean } = await res.json();
+      const data: { reply: string; completed: boolean; fields?: Record<string, string> } = await res.json();
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
-      if (data.completed) { setCompleted(true); localStorage.setItem(STORAGE_KEY_DONE, "true"); }
+      if (data.completed) {
+        setCompleted(true);
+        localStorage.setItem(STORAGE_KEY_DONE, "true");
+        if (data.fields && onComplete) {
+          onComplete(data.fields);
+        }
+      }
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -89,7 +100,7 @@ export default function ChatWidget() {
       setLoading(false);
       inputRef.current?.focus();
     }
-  }, [loading, sessionId]);
+  }, [loading, sessionId, onComplete]);
 
   const startConversation = useCallback(async () => {
     if (started || loading || !sessionId) return;
@@ -118,6 +129,7 @@ export default function ChatWidget() {
     localStorage.removeItem(STORAGE_KEY_MESSAGES);
     localStorage.removeItem(STORAGE_KEY_SESSION);
     localStorage.removeItem(STORAGE_KEY_DONE);
+    localStorage.removeItem(STORAGE_KEY_FIELDS);
     window.location.reload();
   };
 
@@ -134,7 +146,6 @@ export default function ChatWidget() {
         style={{ borderBottom: "1px solid var(--border)" }}
       >
         <div className="flex items-center gap-3">
-          {/* Avatar with accent ring */}
           <div
             className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
             style={{
@@ -143,14 +154,13 @@ export default function ChatWidget() {
               outlineOffset: "2px",
             }}
           >
-            <span className="font-display font-bold text-sm" style={{ color: "var(--accent)" }}>S</span>
+            <span className="font-display font-bold text-sm" style={{ color: "var(--accent)" }}>J</span>
           </div>
           <div>
             <div className="text-sm font-semibold font-display" style={{ color: "var(--text)" }}>
               Jessica
             </div>
             <div className="flex items-center gap-1.5">
-              {/* Online indicator */}
               <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "var(--accent)", opacity: 0.8 }} />
               <span className="text-xs" style={{ color: "var(--muted)" }}>
                 AI Consultant · PropFlow
@@ -158,7 +168,6 @@ export default function ChatWidget() {
             </div>
           </div>
         </div>
-        {/* Reset — minimal text only */}
         <button
           onClick={resetConversation}
           className="text-xs transition-opacity hover:opacity-60"
@@ -180,7 +189,6 @@ export default function ChatWidget() {
               className="w-12 h-12 rounded-2xl flex items-center justify-center"
               style={{ background: "var(--surface2)", border: "1px solid var(--border)" }}
             >
-              {/* Sparkle / AI icon */}
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -201,8 +209,8 @@ export default function ChatWidget() {
                 Talk to Jessica
               </div>
               <div className="text-sm leading-relaxed max-w-[260px]" style={{ color: "var(--muted)" }}>
-                PropFlow&apos;s AI consultant. She&apos;ll understand your project and
-                collect everything your team needs through natural conversation.
+                PropFlow&apos;s AI consultant. She&apos;ll collect everything
+                your team needs through natural conversation.
               </div>
             </div>
             <button
@@ -220,7 +228,6 @@ export default function ChatWidget() {
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {msg.role === "user" ? (
-                  /* User bubble — tight fit, pill-like for short replies */
                   <div
                     className="text-sm leading-relaxed rounded-2xl rounded-br-md px-4 py-2.5"
                     style={{
@@ -233,7 +240,6 @@ export default function ChatWidget() {
                     {msg.content}
                   </div>
                 ) : (
-                  /* AI bubble — no border, just surface background */
                   <div
                     className="text-sm leading-relaxed rounded-2xl rounded-bl-md px-4 py-3"
                     style={{
@@ -257,17 +263,18 @@ export default function ChatWidget() {
             )}
 
             {completed && (
-              <div className="flex justify-center pt-2">
+              <div className="flex justify-center pt-3">
                 <div
                   className="rounded-xl px-4 py-3 text-xs text-center"
                   style={{
                     background: "var(--surface2)",
-                    border: "1px solid rgba(156,204,101,0.14)",
+                    border: "1px solid rgba(156,204,101,0.18)",
                     color: "var(--muted)",
                     maxWidth: "280px",
                   }}
                 >
-                  Enquiry complete — a PropFlow specialist will follow up shortly.
+                  Enquiry complete — your project brief has been created.
+                  Check the panel on the left.
                 </div>
               </div>
             )}
@@ -292,7 +299,7 @@ export default function ChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={completed ? "Enquiry complete" : "Type a message…"}
+              placeholder={completed ? "Enquiry complete — see brief on the left" : "Type a message…"}
               disabled={loading || completed}
               className="flex-1 text-sm rounded-2xl px-4 py-2.5 outline-none disabled:opacity-40 transition-all"
               style={{
@@ -302,7 +309,6 @@ export default function ChatWidget() {
                 fontFamily: "var(--font-sans), system-ui, sans-serif",
               }}
             />
-            {/* Send button — circular with clean arrow icon */}
             <button
               onClick={() => sendMessage(input)}
               disabled={loading || !input.trim() || completed}
