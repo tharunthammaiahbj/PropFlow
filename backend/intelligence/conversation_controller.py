@@ -1354,13 +1354,19 @@ class ConversationController:
                         pass
 
                 # Determine the next concrete field to ask.
+                # Defaults must be set unconditionally so the deterministic
+                # fallback path below never hits a NameError when dp is None.
+                dp_id = ""
+                dp_label = ""
+                dp_hint = ""
+                dp_opts: Any = None
+                opts_str = ""
                 dp = _next_pending_datapoint(service_id)
                 if isinstance(dp, dict) and dp.get("id"):
                     dp_id = str(dp.get("id") or "").strip()
                     dp_label = str(dp.get("label") or dp_id).strip()
                     dp_hint = str(dp.get("hint") or "").strip()
                     dp_opts = dp.get("options")
-                    opts_str = ""
                     if isinstance(dp_opts, list) and dp_opts:
                         opts_str = ", ".join(str(o) for o in dp_opts[:10])
                     next_field = (
@@ -1847,7 +1853,18 @@ class ConversationController:
                             expert_first=expert2,
                         )
                     except Exception:
-                        reply = f"Great, you're connected! To kick things off — what type of {service_label2 or svc_bucket} work are you looking for?"
+                        _emoji_map = {
+                            "electrical": "⚡", "solar": "☀️", "painting": "🎨",
+                            "plumbing": "🚰", "interiors": "🛋️", "construction": "🏗️",
+                            "home automation": "🏠",
+                        }
+                        _e = _emoji_map.get((svc_bucket or "").lower(), "")
+                        _e_suffix = f" {_e}" if _e else ""
+                        reply = (
+                            f"Hi, I'm {expert2} from PropFlow {service_label2 or svc_bucket}{_e_suffix} — "
+                            f"Jessica just transferred you. To start, could you tell me a bit more "
+                            f"about the project — type of property and scope of work?"
+                        )
                     extracted["__wa:stage"] = "SPECIALIST_ACTIVE"
                     session.add_message(MessageRole.ASSISTANT, reply)
                     return AgentResponse(text=reply, session=session)
@@ -1958,7 +1975,18 @@ class ConversationController:
                         expert_first=expert2,
                     )
                 except Exception:
-                    reply = f"Great, you're connected! To kick things off — what type of {service_label2 or svc_bucket} work are you looking for?"
+                    _emoji_map = {
+                        "electrical": "⚡", "solar": "☀️", "painting": "🎨",
+                        "plumbing": "🚰", "interiors": "🛋️", "construction": "🏗️",
+                        "home automation": "🏠",
+                    }
+                    _e = _emoji_map.get((svc_bucket or "").lower(), "")
+                    _e_suffix = f" {_e}" if _e else ""
+                    reply = (
+                        f"Hi, I'm {expert2} from PropFlow {service_label2 or svc_bucket}{_e_suffix} — "
+                        f"Jessica just transferred you. To start, could you tell me a bit more "
+                        f"about the project — type of property and scope of work?"
+                    )
                 extracted["__wa:stage"] = "SPECIALIST_ACTIVE"
                 session.add_message(MessageRole.ASSISTANT, reply)
                 return AgentResponse(text=reply, session=session)

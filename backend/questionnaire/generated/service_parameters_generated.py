@@ -491,57 +491,62 @@ SERVICE_PARAMS: dict[str, ServiceParamSet] = {
     "required": [
       {
         "id": "project_type",
-        "label": "Property type (for automation)",
-        "hint": "apartment, villa, independent house"
+        "label": "Property type",
+        "hint": "apartment, villa, or independent house"
       },
       {
         "id": "property_type",
         "label": "Property stage",
-        "hint": "new construction, existing home, under renovation"
+        "hint": "new construction, existing home, or under renovation"
+      },
+      {
+        "id": "size_sqft",
+        "label": "Property area (sqft)",
+        "hint": "total property size in square feet"
       },
       {
         "id": "rooms",
         "label": "Rooms / zones for automation",
-        "hint": "whole home, living + bedrooms, specific rooms"
+        "hint": "whole home, living + bedrooms, or specific rooms"
       },
       {
         "id": "automation_scope",
         "label": "What to automate",
-        "hint": "lighting, security, climate, curtains, full home"
-      },
-      {
-        "id": "current_systems",
-        "label": "Existing electrical / systems",
-        "hint": "wiring age, DB, existing switches, ACs"
+        "hint": "lighting, security, climate, curtains, or full home"
       },
       {
         "id": "budget",
-        "label": "Smart home / automation budget",
-        "hint": "total in lakhs/INR for automation system"
+        "label": "Automation budget",
+        "hint": "rough budget in lakhs/INR"
       },
       {
         "id": "timeline",
-        "label": "When to complete automation",
-        "hint": "ASAP, with interior, phase-wise"
-      },
-      {
-        "id": "preferred_start",
-        "label": "When to start automation work",
-        "hint": "ASAP, after interior, next month"
+        "label": "Project timeline",
+        "hint": "ASAP, 1 month, 3 months, or flexible"
       },
       {
         "id": "location",
-        "label": "Project location (city/area)",
-        "hint": "city and area where automation work is"
+        "label": "Project location",
+        "hint": "city and area"
       },
       {
         "id": "contact_pref",
         "label": "How to reach you",
         "hint": "phone, WhatsApp, or email"
       },
-      
+
     ],
     "optional": [
+      {
+        "id": "current_systems",
+        "label": "Existing electrical / systems",
+        "hint": "wiring age, DB, existing switches, ACs"
+      },
+      {
+        "id": "preferred_start",
+        "label": "When to start automation work",
+        "hint": "ASAP, after interior, next month"
+      },
       {
         "id": "lighting_need",
         "label": "Smart lighting need",
@@ -791,56 +796,61 @@ SERVICE_PARAMS: dict[str, ServiceParamSet] = {
       {
         "id": "project_type",
         "label": "Electrical work type",
-        "hint": "residential, commercial, industrial"
+        "hint": "residential, commercial, or industrial"
       },
       {
         "id": "scope_type",
         "label": "Scope of electrical work",
-        "hint": "full rewiring, new installation, load upgrade, audit"
+        "hint": "full rewiring, new installation, load upgrade, or safety audit"
       },
       {
-        "id": "current_system",
-        "label": "Current electrical setup",
-        "hint": "wiring age, DB capacity, meter type"
+        "id": "size_sqft",
+        "label": "Property area (sqft)",
+        "hint": "total property size in square feet"
       },
       {
         "id": "load_requirement",
-        "label": "Connected / required load (kW)",
-        "hint": "existing sanctioned load or new requirement"
+        "label": "Approximate load (kW)",
+        "hint": "approximate load in kW (e.g. 5kW, 10kW) or 'not sure'"
       },
       {
         "id": "safety_audit",
-        "label": "Electrical safety audit needed",
-        "hint": "yes/no – need audit before work"
+        "label": "Include safety audit",
+        "hint": "yes or no"
       },
       {
         "id": "budget",
         "label": "Electrical work budget",
-        "hint": "total in lakhs/INR for labour + material"
+        "hint": "rough budget in lakhs/INR"
       },
       {
         "id": "timeline",
-        "label": "When to complete electrical work",
-        "hint": "ASAP, with renovation, phase-wise"
-      },
-      {
-        "id": "preferred_start",
-        "label": "When to start electrical work",
-        "hint": "ASAP, after demolition"
+        "label": "Project timeline",
+        "hint": "ASAP, 1 month, 3 months, or flexible"
       },
       {
         "id": "location",
-        "label": "Project location (city/area)",
-        "hint": "city and area where electrical work is"
+        "label": "Project location",
+        "hint": "city and area"
       },
       {
         "id": "contact_pref",
         "label": "How to reach you",
         "hint": "phone, WhatsApp, or email"
       },
-      
+
     ],
     "optional": [
+      {
+        "id": "current_system",
+        "label": "Current electrical setup",
+        "hint": "wiring age, DB capacity, meter type"
+      },
+      {
+        "id": "preferred_start",
+        "label": "When to start electrical work",
+        "hint": "ASAP, after demolition"
+      },
       {
         "id": "backup_need",
         "label": "Backup / inverter need",
