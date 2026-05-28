@@ -2,39 +2,126 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --bg:       #050d07;
+  --surface:  #0a1a0d;
+  --surface2: #0f2213;
+  --border:   #183320;
+  --accent:   #22c55e;
+  --text:     #ddf0de;
+  --muted:    #527a55;
 }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--text);
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar for chat */
-.chat-scroll::-webkit-scrollbar {
-  width: 4px;
-}
-.chat-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.chat-scroll::-webkit-scrollbar-thumb {
-  background: #d1fae5;
-  border-radius: 4px;
+/* Dot grid */
+.bg-grid {
+  background-image: radial-gradient(rgba(34,197,94,0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-/* Typing animation */
+/* Radial hero glow */
+.hero-glow {
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(34,197,94,0.10) 0%, transparent 70%);
+}
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  border-color: rgba(34,197,94,0.30);
+  box-shadow: 0 0 24px rgba(34,197,94,0.06);
+}
+
+/* Glow button */
+.btn-glow {
+  box-shadow: 0 0 20px rgba(34,197,94,0.25);
+  transition: box-shadow 0.2s, background 0.15s;
+}
+.btn-glow:hover {
+  box-shadow: 0 0 36px rgba(34,197,94,0.40);
+}
+
+/* Chat scroll */
+.chat-scroll {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.chat-scroll::-webkit-scrollbar { width: 4px; }
+.chat-scroll::-webkit-scrollbar-track { background: transparent; }
+.chat-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+/* Typing dots */
 @keyframes blink {
   0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; }
+  50%       { opacity: 1; }
 }
-.typing-dot {
-  animation: blink 1.2s infinite;
+.typing-dot { animation: blink 1.3s infinite ease-in-out; }
+.typing-dot:nth-child(2) { animation-delay: 0.22s; }
+.typing-dot:nth-child(3) { animation-delay: 0.44s; }
+
+/* Fade up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+.fade-up   { animation: fadeUp 0.65s ease both; }
+.fade-up-2 { animation: fadeUp 0.65s 0.12s ease both; }
+.fade-up-3 { animation: fadeUp 0.65s 0.24s ease both; }
+.fade-up-4 { animation: fadeUp 0.65s 0.36s ease both; }
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Nav blur */
+.nav-blur {
+  background: rgba(5,13,7,0.80);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Step number */
+.step-num {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+}
+
+/* Tag pill */
+.tag {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.tag:hover {
+  border-color: rgba(34,197,94,0.3);
+  color: var(--accent);
+}

@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import ChatWidget from "@/components/ChatWidget";
 
 export const metadata = {
@@ -8,73 +8,85 @@ export const metadata = {
 
 export default function DemoPage() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div
+      className="h-screen flex flex-col overflow-hidden"
+      style={{ background: "var(--bg)", color: "var(--text)" }}
+    >
       {/* Nav */}
-      <nav className="bg-white border-b border-gray-100 px-6 h-14 flex items-center justify-between flex-shrink-0">
-        <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors text-sm">
+      <nav className="nav-blur flex-shrink-0 px-6 h-14 flex items-center justify-between">
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-sm transition-colors"
+          style={{ color: "var(--muted)" }}
+        >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
           Back
         </Link>
-        <span className="font-semibold text-gray-900 tracking-tight text-sm">PropFlow Demo</span>
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center">
+            <span className="text-black font-bold text-xs">P</span>
+          </div>
+          <span className="font-semibold tracking-tight text-sm">PropFlow</span>
+        </div>
         <div className="w-16" />
       </nav>
 
-      {/* Main layout */}
-      <div className="flex-1 flex flex-col lg:flex-row max-w-6xl mx-auto w-full px-4 py-8 gap-8">
-        {/* Left: context */}
-        <div className="lg:w-72 flex-shrink-0">
-          <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
-              <span className="text-2xl">🏠</span>
+      {/* Body */}
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-6xl mx-auto w-full px-4 py-6 gap-5">
+
+        {/* Left panel */}
+        <div className="lg:w-72 flex-shrink-0 overflow-y-auto chat-scroll">
+          <div className="card rounded-2xl p-6 h-full" style={{ background: "var(--surface)" }}>
+            <div
+              className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 text-emerald-400"
+              style={{ background: "var(--surface2)", border: "1px solid var(--border)" }}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.6} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
             </div>
-            <h1 className="font-bold text-gray-900 mb-2">Talk to Sophia</h1>
-            <p className="text-sm text-gray-500 leading-relaxed mb-5">
-              Sophia is PropFlow&apos;s interior design consultant. She&apos;ll understand your
-              project through natural conversation and collect everything your team needs to follow up.
+
+            <h1 className="font-bold mb-2 text-base" style={{ color: "var(--text)" }}>Talk to Sophia</h1>
+            <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--muted)" }}>
+              Sophia is PropFlow&apos;s interior design consultant. She&apos;ll understand your project
+              through natural conversation and collect everything your team needs to follow up.
             </p>
 
-            <div className="space-y-3 text-xs text-gray-400">
-              <div className="flex gap-2 items-start">
-                <span className="mt-0.5 text-green-500">✓</span>
-                <span>Collects project type, city, area, budget, timeline &amp; more</span>
-              </div>
-              <div className="flex gap-2 items-start">
-                <span className="mt-0.5 text-green-500">✓</span>
-                <span>Handles domain questions, pricing guardrails &amp; off-topic messages</span>
-              </div>
-              <div className="flex gap-2 items-start">
-                <span className="mt-0.5 text-green-500">✓</span>
-                <span>Same AI that runs on WhatsApp and live phone calls</span>
-              </div>
-              <div className="flex gap-2 items-start">
-                <span className="mt-0.5 text-green-500">✓</span>
-                <span>Conversation saved in your browser — refresh safely</span>
-              </div>
+            <div className="space-y-3 mb-6">
+              {[
+                "Collects project type, city, area, budget, timeline & more",
+                "Handles pricing guardrails & off-topic messages gracefully",
+                "Same AI that runs on WhatsApp and live phone calls",
+                "Conversation saved in your browser — refresh safely",
+              ].map((item) => (
+                <div key={item} className="flex gap-2.5 items-start">
+                  <span className="mt-0.5 text-emerald-400 flex-shrink-0 text-xs font-bold">✓</span>
+                  <span className="text-xs leading-relaxed" style={{ color: "var(--muted)" }}>{item}</span>
+                </div>
+              ))}
             </div>
 
-            <div className="mt-6 pt-5 border-t border-gray-100">
-              <div className="text-xs text-gray-400 mb-2 font-medium">Services available</div>
+            <div style={{ borderTop: "1px solid var(--border)", paddingTop: "1.25rem" }}>
+              <div className="text-xs font-medium mb-2.5 uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+                Services available
+              </div>
               <div className="flex flex-wrap gap-1.5">
-                {["Interiors", "Construction", "Solar", "Painting", "Plumbing", "Electrical"].map(
-                  (s) => (
-                    <span
-                      key={s}
-                      className="text-xs bg-gray-50 border border-gray-200 text-gray-600 rounded-md px-2 py-0.5"
-                    >
-                      {s}
-                    </span>
-                  )
-                )}
+                {["Interiors", "Construction", "Solar", "Painting", "Plumbing", "Electrical"].map((s) => (
+                  <span key={s} className="tag">{s}</span>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right: chat */}
-        <div className="flex-1 min-h-[560px] lg:min-h-0">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm h-full flex flex-col overflow-hidden" style={{ minHeight: "560px" }}>
+        {/* Chat panel */}
+        <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+          <div
+            className="card rounded-2xl flex flex-col overflow-hidden flex-1"
+            style={{ background: "var(--surface)" }}
+          >
             <ChatWidget />
           </div>
         </div>

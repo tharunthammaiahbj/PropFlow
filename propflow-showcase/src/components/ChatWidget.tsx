@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
 
@@ -8,8 +8,8 @@ interface Message {
 }
 
 const STORAGE_KEY_MESSAGES = "propflow_demo_messages";
-const STORAGE_KEY_SESSION = "propflow_demo_session_id";
-const STORAGE_KEY_DONE = "propflow_demo_completed";
+const STORAGE_KEY_SESSION  = "propflow_demo_session_id";
+const STORAGE_KEY_DONE     = "propflow_demo_completed";
 
 function generateSessionId(): string {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
@@ -22,28 +22,27 @@ function generateSessionId(): string {
 function TypingIndicator() {
   return (
     <div className="flex gap-1 items-center px-4 py-3">
-      <span className="typing-dot w-2 h-2 rounded-full bg-green-400 inline-block" />
-      <span className="typing-dot w-2 h-2 rounded-full bg-green-400 inline-block" />
-      <span className="typing-dot w-2 h-2 rounded-full bg-green-400 inline-block" />
+      <span className="typing-dot w-2 h-2 rounded-full bg-emerald-400 inline-block" />
+      <span className="typing-dot w-2 h-2 rounded-full bg-emerald-400 inline-block" />
+      <span className="typing-dot w-2 h-2 rounded-full bg-emerald-400 inline-block" />
     </div>
   );
 }
 
 export default function ChatWidget() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages,  setMessages]  = useState<Message[]>([]);
   const [sessionId, setSessionId] = useState<string>("");
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [input,     setInput]     = useState("");
+  const [loading,   setLoading]   = useState(false);
   const [completed, setCompleted] = useState(false);
-  const [started, setStarted] = useState(false);
+  const [started,   setStarted]   = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef  = useRef<HTMLInputElement>(null);
 
-  // Hydrate from localStorage on mount
   useEffect(() => {
-    const storedSession = localStorage.getItem(STORAGE_KEY_SESSION);
+    const storedSession  = localStorage.getItem(STORAGE_KEY_SESSION);
     const storedMessages = localStorage.getItem(STORAGE_KEY_MESSAGES);
-    const storedDone = localStorage.getItem(STORAGE_KEY_DONE);
+    const storedDone     = localStorage.getItem(STORAGE_KEY_DONE);
 
     const sid = storedSession || generateSessionId();
     if (!storedSession) localStorage.setItem(STORAGE_KEY_SESSION, sid);
@@ -52,94 +51,58 @@ export default function ChatWidget() {
     if (storedMessages) {
       try {
         const parsed: Message[] = JSON.parse(storedMessages);
-        if (parsed.length > 0) {
-          setMessages(parsed);
-          setStarted(true);
-        }
-      } catch {
-        // ignore parse errors
-      }
+        if (parsed.length > 0) { setMessages(parsed); setStarted(true); }
+      } catch { /* ignore */ }
     }
-
     if (storedDone === "true") setCompleted(true);
   }, []);
 
-  // Persist messages whenever they change
   useEffect(() => {
-    if (messages.length > 0) {
-      localStorage.setItem(STORAGE_KEY_MESSAGES, JSON.stringify(messages));
-    }
+    if (messages.length > 0) localStorage.setItem(STORAGE_KEY_MESSAGES, JSON.stringify(messages));
   }, [messages]);
 
-  // Auto-scroll to bottom
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  const sendMessage = useCallback(
-    async (text: string) => {
-      if (!text.trim() || loading || !sessionId) return;
-
-      const userMsg: Message = { role: "user", content: text.trim() };
-      setMessages((prev) => [...prev, userMsg]);
-      setInput("");
-      setLoading(true);
-
-      try {
-        const res = await fetch("/api/webhook/web", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ session_id: sessionId, message: text.trim() }),
-        });
-
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data: { reply: string; completed: boolean } = await res.json();
-
-        const assistantMsg: Message = { role: "assistant", content: data.reply };
-        setMessages((prev) => [...prev, assistantMsg]);
-
-        if (data.completed) {
-          setCompleted(true);
-          localStorage.setItem(STORAGE_KEY_DONE, "true");
-        }
-      } catch {
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            content: "Something went wrong — please try again in a moment.",
-          },
-        ]);
-      } finally {
-        setLoading(false);
-        inputRef.current?.focus();
-      }
-    },
-    [loading, sessionId]
-  );
+  const sendMessage = useCallback(async (text: string) => {
+    if (!text.trim() || loading || !sessionId) return;
+    setMessages((prev) => [...prev, { role: "user", content: text.trim() }]);
+    setInput("");
+    setLoading(true);
+    try {
+      const res  = await fetch("/api/webhook/web", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionId, message: text.trim() }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data: { reply: string; completed: boolean } = await res.json();
+      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      if (data.completed) { setCompleted(true); localStorage.setItem(STORAGE_KEY_DONE, "true"); }
+    } catch {
+      setMessages((prev) => [...prev, { role: "assistant", content: "Something went wrong — please try again." }]);
+    } finally {
+      setLoading(false);
+      inputRef.current?.focus();
+    }
+  }, [loading, sessionId]);
 
   const startConversation = useCallback(async () => {
     if (started || loading || !sessionId) return;
     setStarted(true);
     setLoading(true);
-
     try {
-      const res = await fetch("/api/webhook/web", {
+      const res  = await fetch("/api/webhook/web", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ session_id: sessionId, message: "hi" }),
       });
-
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data: { reply: string; completed: boolean } = await res.json();
       setMessages([{ role: "assistant", content: data.reply }]);
     } catch {
-      setMessages([
-        {
-          role: "assistant",
-          content: "Hi! I had trouble connecting. Please refresh and try again.",
-        },
-      ]);
+      setMessages([{ role: "assistant", content: "Hi! I had trouble connecting. Please refresh and try again." }]);
     } finally {
       setLoading(false);
       inputRef.current?.focus();
@@ -154,28 +117,32 @@ export default function ChatWidget() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage(input);
-    }
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(input); }
   };
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Chat header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white">
+    <div className="flex flex-col h-full overflow-hidden">
+      {/* Header */}
+      <div
+        className="flex items-center justify-between px-5 py-3.5 flex-shrink-0"
+        style={{ borderBottom: "1px solid var(--border)" }}
+      >
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-green-100 rounded-full flex items-center justify-center">
-            <span className="text-green-700 font-bold text-sm">S</span>
+          <div
+            className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+            style={{ background: "var(--surface2)", border: "1px solid var(--border)" }}
+          >
+            <span className="text-emerald-400 font-bold text-sm">S</span>
           </div>
           <div>
-            <div className="text-sm font-semibold text-gray-900">Sophia</div>
-            <div className="text-xs text-gray-400">Interior Design Consultant · PropFlow</div>
+            <div className="text-sm font-semibold" style={{ color: "var(--text)" }}>Sophia</div>
+            <div className="text-xs" style={{ color: "var(--muted)" }}>Interior Design Consultant · PropFlow</div>
           </div>
         </div>
         <button
           onClick={resetConversation}
-          className="text-xs text-gray-400 hover:text-gray-600 transition-colors px-2 py-1 rounded-md hover:bg-gray-100"
+          className="text-xs px-2.5 py-1 rounded-lg transition-colors"
+          style={{ color: "var(--muted)", border: "1px solid var(--border)" }}
           title="Start a new conversation"
         >
           Reset
@@ -183,22 +150,27 @@ export default function ChatWidget() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto chat-scroll px-4 py-5 space-y-3 bg-gray-50">
+      <div className="flex-1 overflow-y-auto chat-scroll px-4 py-5 space-y-3" style={{ background: "var(--bg)" }}>
         {!started ? (
-          <div className="flex flex-col items-center justify-center h-full text-center gap-4">
-            <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center">
-              <span className="text-3xl">🏠</span>
+          <div className="flex flex-col items-center justify-center h-full text-center gap-5">
+            <div
+              className="w-16 h-16 rounded-2xl flex items-center justify-center text-emerald-400"
+              style={{ background: "var(--surface2)", border: "1px solid var(--border)" }}
+            >
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
             </div>
             <div>
-              <div className="font-semibold text-gray-800 mb-1">Talk to Sophia</div>
-              <div className="text-sm text-gray-400 max-w-xs">
+              <div className="font-semibold mb-1.5" style={{ color: "var(--text)" }}>Talk to Sophia</div>
+              <div className="text-sm max-w-xs leading-relaxed" style={{ color: "var(--muted)" }}>
                 PropFlow&apos;s AI interior design consultant. She&apos;ll understand your project and
                 collect everything your team needs.
               </div>
             </div>
             <button
               onClick={startConversation}
-              className="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-6 py-2.5 rounded-xl transition-colors"
+              className="btn-glow bg-emerald-500 hover:bg-emerald-400 text-black text-sm font-semibold px-6 py-2.5 rounded-xl transition-all"
             >
               Start conversation
             </button>
@@ -206,16 +178,16 @@ export default function ChatWidget() {
         ) : (
           <>
             {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-              >
+              <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div
                   className={`max-w-[78%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                    msg.role === "user"
-                      ? "bg-green-600 text-white rounded-br-sm"
-                      : "bg-white text-gray-800 border border-gray-100 shadow-sm rounded-bl-sm"
+                    msg.role === "user" ? "rounded-br-sm" : "rounded-bl-sm"
                   }`}
+                  style={
+                    msg.role === "user"
+                      ? { background: "#16a34a", color: "#f0fdf4" }
+                      : { background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }
+                  }
                 >
                   {msg.content}
                 </div>
@@ -224,7 +196,10 @@ export default function ChatWidget() {
 
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-white border border-gray-100 shadow-sm rounded-2xl rounded-bl-sm">
+                <div
+                  className="rounded-2xl rounded-bl-sm"
+                  style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+                >
                   <TypingIndicator />
                 </div>
               </div>
@@ -232,7 +207,10 @@ export default function ChatWidget() {
 
             {completed && (
               <div className="flex justify-center pt-2">
-                <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3 text-xs text-green-700 text-center max-w-xs">
+                <div
+                  className="rounded-xl px-4 py-3 text-xs text-center max-w-xs"
+                  style={{ background: "var(--surface2)", border: "1px solid rgba(34,197,94,0.25)", color: "var(--muted)" }}
+                >
                   Enquiry complete — a PropFlow specialist will follow up shortly.
                 </div>
               </div>
@@ -244,7 +222,10 @@ export default function ChatWidget() {
 
       {/* Input */}
       {started && (
-        <div className="px-4 py-3 border-t border-gray-100 bg-white">
+        <div
+          className="px-4 py-3 flex-shrink-0"
+          style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}
+        >
           <div className="flex gap-2 items-center">
             <input
               ref={inputRef}
@@ -254,12 +235,17 @@ export default function ChatWidget() {
               onKeyDown={handleKeyDown}
               placeholder={completed ? "Enquiry complete" : "Type a message…"}
               disabled={loading || completed}
-              className="flex-1 text-sm bg-gray-100 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-green-300 disabled:opacity-50 transition-all placeholder:text-gray-400"
+              className="flex-1 text-sm rounded-xl px-4 py-2.5 outline-none disabled:opacity-40 transition-all"
+              style={{
+                background: "var(--surface2)",
+                border: "1px solid var(--border)",
+                color: "var(--text)",
+              }}
             />
             <button
               onClick={() => sendMessage(input)}
               disabled={loading || !input.trim() || completed}
-              className="w-9 h-9 bg-green-600 hover:bg-green-700 disabled:bg-gray-200 text-white rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
+              className="w-9 h-9 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-30 text-black rounded-xl flex items-center justify-center transition-all flex-shrink-0"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
