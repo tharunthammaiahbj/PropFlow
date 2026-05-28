@@ -145,7 +145,7 @@ export default function HomePage() {
       </nav>
 
       {/* ── Hero ──────────────────────────────────── */}
-      <section className="relative pt-44 pb-32 px-6 overflow-hidden">
+      <section className="relative pt-28 pb-24 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-grid pointer-events-none" />
         <div className="absolute inset-0 hero-glow pointer-events-none" />
         {/* Subtle bottom glow-line */}
@@ -158,7 +158,7 @@ export default function HomePage() {
 
         <div className="relative max-w-6xl mx-auto">
           {/* Label row */}
-          <div className="flex items-center gap-3 mb-14 fade-up">
+          <div className="flex items-center gap-3 mb-8 fade-up">
             <span className="mono-label" style={{ color: "var(--muted)" }}>AI Intake Platform</span>
             <span
               className="w-8 h-px inline-block flex-shrink-0"
