@@ -5,13 +5,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap');
 
 :root {
-  --bg:       #050d07;
-  --surface:  #0a1a0d;
-  --surface2: #0f2213;
-  --border:   #183320;
-  --accent:   #22c55e;
-  --text:     #ddf0de;
-  --muted:    #527a55;
+  --bg:       #111411;
+  --surface:  #161b16;
+  --surface2: #1b251b;
+  --border:   #263326;
+  --accent:   #9ccc65;
+  --text:     #dde8d6;
+  --muted:    #5e7a5e;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -26,35 +26,53 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Dot grid */
+/* Architectural line grid */
 .bg-grid {
-  background-image: radial-gradient(rgba(34,197,94,0.12) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image:
+    linear-gradient(rgba(156,204,101,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(156,204,101,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 /* Radial hero glow */
 .hero-glow {
-  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(34,197,94,0.10) 0%, transparent 70%);
+  background: radial-gradient(ellipse 65% 40% at 50% 0%, rgba(156,204,101,0.09) 0%, transparent 70%);
 }
 
 /* Card */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.25s, box-shadow 0.25s;
 }
 .card:hover {
-  border-color: rgba(34,197,94,0.30);
-  box-shadow: 0 0 24px rgba(34,197,94,0.06);
+  border-color: rgba(156,204,101,0.22);
+  box-shadow: 0 0 32px rgba(156,204,101,0.05);
 }
 
-/* Glow button */
-.btn-glow {
-  box-shadow: 0 0 20px rgba(34,197,94,0.25);
-  transition: box-shadow 0.2s, background 0.15s;
+/* Primary button */
+.btn-primary {
+  background: var(--accent);
+  color: #111411;
+  font-weight: 600;
+  box-shadow: 0 0 24px rgba(156,204,101,0.18);
+  transition: box-shadow 0.2s, background 0.15s, transform 0.15s;
 }
-.btn-glow:hover {
-  box-shadow: 0 0 36px rgba(34,197,94,0.40);
+.btn-primary:hover {
+  background: #aed67a;
+  box-shadow: 0 0 40px rgba(156,204,101,0.32);
+  transform: translateY(-1px);
+}
+
+/* Ghost button */
+.btn-ghost {
+  border: 1px solid var(--border);
+  color: var(--muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover {
+  border-color: rgba(156,204,101,0.28);
+  color: var(--text);
 }
 
 /* Chat scroll */
@@ -78,17 +96,18 @@ body {
 
 /* Fade up */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.fade-up   { animation: fadeUp 0.65s ease both; }
-.fade-up-2 { animation: fadeUp 0.65s 0.12s ease both; }
-.fade-up-3 { animation: fadeUp 0.65s 0.24s ease both; }
-.fade-up-4 { animation: fadeUp 0.65s 0.36s ease both; }
+.fade-up   { animation: fadeUp 0.7s ease both; }
+.fade-up-2 { animation: fadeUp 0.7s 0.1s ease both; }
+.fade-up-3 { animation: fadeUp 0.7s 0.2s ease both; }
+.fade-up-4 { animation: fadeUp 0.7s 0.32s ease both; }
+.fade-up-5 { animation: fadeUp 0.7s 0.44s ease both; }
 
 /* Gradient text */
 .text-gradient {
-  background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+  background: linear-gradient(135deg, #c4e888 0%, #9ccc65 60%, #7aaa3f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -96,18 +115,29 @@ body {
 
 /* Nav blur */
 .nav-blur {
-  background: rgba(5,13,7,0.80);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(17,20,17,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
 
-/* Step number */
-.step-num {
-  font-size: 0.65rem;
+/* Monospace label */
+.mono-label {
+  font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Step accent */
+.step-label {
+  font-family: 'SF Mono', ui-monospace, monospace;
+  font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   color: var(--accent);
+  opacity: 0.65;
 }
 
 /* Tag pill */
@@ -117,11 +147,22 @@ body {
   color: var(--muted);
   font-size: 0.7rem;
   font-weight: 500;
-  padding: 0.3rem 0.75rem;
+  padding: 0.28rem 0.7rem;
   border-radius: 9999px;
   transition: border-color 0.2s, color 0.2s;
 }
 .tag:hover {
-  border-color: rgba(34,197,94,0.3);
+  border-color: rgba(156,204,101,0.3);
   color: var(--accent);
+}
+
+/* Accent divider */
+.divider-accent {
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.4;
+  vertical-align: middle;
+  margin: 0 0.75rem;
 }

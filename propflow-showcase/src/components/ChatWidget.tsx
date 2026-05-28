@@ -22,9 +22,9 @@ function generateSessionId(): string {
 function TypingIndicator() {
   return (
     <div className="flex gap-1 items-center px-4 py-3">
-      <span className="typing-dot w-2 h-2 rounded-full bg-emerald-400 inline-block" />
-      <span className="typing-dot w-2 h-2 rounded-full bg-emerald-400 inline-block" />
-      <span className="typing-dot w-2 h-2 rounded-full bg-emerald-400 inline-block" />
+      <span className="typing-dot w-2 h-2 rounded-full inline-block" style={{ background: "var(--accent)" }} />
+      <span className="typing-dot w-2 h-2 rounded-full inline-block" style={{ background: "var(--accent)" }} />
+      <span className="typing-dot w-2 h-2 rounded-full inline-block" style={{ background: "var(--accent)" }} />
     </div>
   );
 }
@@ -132,7 +132,7 @@ export default function ChatWidget() {
             className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
             style={{ background: "var(--surface2)", border: "1px solid var(--border)" }}
           >
-            <span className="text-emerald-400 font-bold text-sm">S</span>
+            <span className="font-bold text-sm" style={{ color: "var(--accent)" }}>S</span>
           </div>
           <div>
             <div className="text-sm font-semibold" style={{ color: "var(--text)" }}>Sophia</div>
@@ -154,8 +154,8 @@ export default function ChatWidget() {
         {!started ? (
           <div className="flex flex-col items-center justify-center h-full text-center gap-5">
             <div
-              className="w-16 h-16 rounded-2xl flex items-center justify-center text-emerald-400"
-              style={{ background: "var(--surface2)", border: "1px solid var(--border)" }}
+              className="w-16 h-16 rounded-2xl flex items-center justify-center"
+              style={{ background: "var(--surface2)", border: "1px solid var(--border)", color: "var(--accent)" }}
             >
               <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -170,7 +170,7 @@ export default function ChatWidget() {
             </div>
             <button
               onClick={startConversation}
-              className="btn-glow bg-emerald-500 hover:bg-emerald-400 text-black text-sm font-semibold px-6 py-2.5 rounded-xl transition-all"
+              className="btn-primary text-sm font-semibold px-6 py-2.5 rounded-xl"
             >
               Start conversation
             </button>
@@ -185,7 +185,7 @@ export default function ChatWidget() {
                   }`}
                   style={
                     msg.role === "user"
-                      ? { background: "#16a34a", color: "#f0fdf4" }
+                      ? { background: "#3a5e20", color: "#dde8d6" }
                       : { background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text)" }
                   }
                 >
@@ -209,7 +209,7 @@ export default function ChatWidget() {
               <div className="flex justify-center pt-2">
                 <div
                   className="rounded-xl px-4 py-3 text-xs text-center max-w-xs"
-                  style={{ background: "var(--surface2)", border: "1px solid rgba(34,197,94,0.25)", color: "var(--muted)" }}
+                  style={{ background: "var(--surface2)", border: "1px solid rgba(156,204,101,0.2)", color: "var(--muted)" }}
                 >
                   Enquiry complete — a PropFlow specialist will follow up shortly.
                 </div>
@@ -245,9 +245,10 @@ export default function ChatWidget() {
             <button
               onClick={() => sendMessage(input)}
               disabled={loading || !input.trim() || completed}
-              className="w-9 h-9 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-30 text-black rounded-xl flex items-center justify-center transition-all flex-shrink-0"
+              className="w-9 h-9 rounded-xl flex items-center justify-center transition-all flex-shrink-0 disabled:opacity-30"
+              style={{ background: "var(--accent)" }}
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="#111411" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>
             </button>

@@ -7,7 +7,14 @@
       "Bash(Remove-Item -Recurse -Force \"c:\\\\Users\\\\Tharun Thammaiah.B.J\\\\Desktop\\\\PropFlow\\\\admin-ui\")",
       "Bash(git init *)",
       "Bash(git remote *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(git pull *)",
+      "Bash(git merge *)",
+      "Bash(git commit *)",
+      "Bash(npm view *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\Tharun Thammaiah.B.J\\.claude\\projects\\c--Users-Tharun-Thammaiah-B-J-Desktop-PropFlow\\memory",
