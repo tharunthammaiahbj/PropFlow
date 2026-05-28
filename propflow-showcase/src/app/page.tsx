@@ -178,7 +178,7 @@ export default function HomePage() {
               >
                 Your AI consultant,
                 <br />
-                <em className="not-italic italic text-gradient">on every channel.</em>
+                <span className="italic text-gradient">on every channel.</span>
               </h1>
 
               <p
@@ -190,11 +190,44 @@ export default function HomePage() {
                 your team — automatically.
               </p>
 
-              <div className="flex flex-wrap gap-3 fade-up-4">
-                <Link href="/demo" className="btn-primary px-7 py-3.5 rounded-xl text-sm">
-                  Try the live demo
+              <div className="flex flex-col gap-4 fade-up-4">
+                {/* Pill CTA button */}
+                <Link
+                  href="/demo"
+                  className="group inline-flex items-center justify-between rounded-full transition-opacity hover:opacity-90"
+                  style={{
+                    background: "var(--accent)",
+                    padding: "5px 5px 5px 26px",
+                    width: "fit-content",
+                    minWidth: "280px",
+                  }}
+                >
+                  <span
+                    className="font-semibold text-sm tracking-tight"
+                    style={{ color: "#0d110d" }}
+                  >
+                    Try the live demo
+                  </span>
+                  <div
+                    className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 transition-transform group-hover:translate-x-0.5"
+                    style={{ background: "#0d110d" }}
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="var(--accent)"
+                      strokeWidth={2.5}
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </Link>
-                <a href="#how-it-works" className="btn-ghost px-7 py-3.5 rounded-xl text-sm">
+                <a
+                  href="#how-it-works"
+                  className="text-sm pl-1"
+                  style={{ color: "var(--muted)" }}
+                >
                   How it works ↓
                 </a>
               </div>

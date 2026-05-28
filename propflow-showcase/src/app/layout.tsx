@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Fraunces, Roboto } from "next/font/google";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -9,10 +9,11 @@ const fraunces = Fraunces({
   style: ["normal", "italic"],
 });
 
-const inter = Inter({
+const roboto = Roboto({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
+  weight: ["300", "400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`dark ${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`dark ${fraunces.variable} ${roboto.variable}`}>
       <body>{children}</body>
     </html>
   );
