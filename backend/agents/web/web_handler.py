@@ -90,7 +90,14 @@ async def web_webhook(body: WebMessageRequest):
         # All collected quest parameters
         params_raw = ef.get(QUEST_PARAMETERS)
         if isinstance(params_raw, dict):
-            _skip_keys = {"contact_pref", "callback_time"}
+            # Skip internal flags + overflow buckets where the LLM dumps
+            # commentary that duplicates structured fields ("budget updated
+            # to 8 lakhs" landing in notes / other_electrical).
+            _skip_keys = {
+                "contact_pref", "callback_time",
+                "notes", "other_electrical", "other_solar", "other_painting",
+                "other_construction", "other_automation", "other_plumbing",
+            }
             _skip_values = {"none", "null", "not specified", "not_specified", "web", "n/a", "na", ""}
             for k, v in params_raw.items():
                 if k in _skip_keys:

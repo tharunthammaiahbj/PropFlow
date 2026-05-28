@@ -229,23 +229,33 @@ export default function ChatWidget({ onComplete }: ChatWidgetProps) {
               >
                 {msg.role === "user" ? (
                   <div
-                    className="text-sm leading-relaxed rounded-2xl rounded-br-md px-4 py-2.5"
+                    className="rounded-2xl rounded-br-md px-4 py-2.5"
                     style={{
                       background: "#253f14",
                       color: "#c2dda6",
                       maxWidth: "75%",
                       width: "fit-content",
+                      fontFamily: "var(--font-reading), Georgia, serif",
+                      fontSize: "15px",
+                      lineHeight: "1.65",
+                      letterSpacing: "-0.005em",
+                      fontWeight: 400,
                     }}
                   >
                     {msg.content}
                   </div>
                 ) : (
                   <div
-                    className="text-sm leading-relaxed rounded-2xl rounded-bl-md px-4 py-3"
+                    className="rounded-2xl rounded-bl-md px-4 py-3"
                     style={{
                       background: "var(--surface)",
-                      color: "var(--text)",
+                      color: "#cbdcc2",
                       maxWidth: "82%",
+                      fontFamily: "var(--font-reading), Georgia, serif",
+                      fontSize: "15px",
+                      lineHeight: "1.7",
+                      letterSpacing: "-0.005em",
+                      fontWeight: 400,
                     }}
                   >
                     {msg.content}
