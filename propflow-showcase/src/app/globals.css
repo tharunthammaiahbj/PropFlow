@@ -139,6 +139,14 @@ body {
   font-family: var(--font-display), Georgia, serif;
 }
 
+/* Lora serif for editorial reading content (hero deck, section intros).
+   UI text (buttons, labels, nav) stays on Inter. Mirrors Claude's
+   Tiempos-for-reading / Styrene-for-UI split. */
+.font-reading {
+  font-family: var(--font-reading), Georgia, serif;
+  letter-spacing: -0.005em;
+}
+
 /* Nav blur */
 .nav-blur {
   background: rgba(17, 20, 17, 0.92);

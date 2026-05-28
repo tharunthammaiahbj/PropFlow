@@ -186,8 +186,8 @@ export default function HomePage() {
               </h1>
 
               <p
-                className="text-[1.05rem] leading-relaxed mb-12 fade-up-3"
-                style={{ color: "var(--muted)", maxWidth: "37rem" }}
+                className="font-reading text-[1.15rem] leading-relaxed mb-12 fade-up-3"
+                style={{ color: "rgba(244,244,239,0.7)", maxWidth: "37rem" }}
               >
                 PropFlow handles WhatsApp and voice calls as a named consultant. Structured
                 client requirements collected through natural conversation, delivered to
@@ -260,7 +260,7 @@ export default function HomePage() {
             >
               How it works
             </h2>
-            <p className="max-w-md text-base leading-relaxed" style={{ color: "var(--muted)" }}>
+            <p className="font-reading max-w-md text-base leading-relaxed" style={{ color: "rgba(244,244,239,0.65)" }}>
               A client reaches out. PropFlow handles the intake. Your team receives a
               structured brief — not a raw enquiry.
             </p>
@@ -312,7 +312,7 @@ export default function HomePage() {
             >
               What PropFlow does
             </h2>
-            <p className="text-base" style={{ color: "var(--muted)" }}>
+            <p className="font-reading text-base leading-relaxed" style={{ color: "rgba(244,244,239,0.65)" }}>
               Production-grade AI intake, built for property and design services.
             </p>
           </div>
@@ -347,7 +347,7 @@ export default function HomePage() {
             >
               Built with
             </h2>
-            <p className="text-sm" style={{ color: "var(--muted)" }}>
+            <p className="font-reading text-base leading-relaxed" style={{ color: "rgba(244,244,239,0.65)" }}>
               Production-grade. Deployed and live.
             </p>
           </div>
@@ -377,8 +377,8 @@ export default function HomePage() {
               See it in action.
             </h2>
             <p
-              className="text-lg leading-relaxed mb-10"
-              style={{ color: "var(--muted)", maxWidth: "38rem" }}
+              className="font-reading text-lg leading-relaxed mb-10"
+              style={{ color: "rgba(244,244,239,0.7)", maxWidth: "38rem" }}
             >
               Talk to Jessica — PropFlow&apos;s AI consultant — right here in the
               browser. No WhatsApp required.
