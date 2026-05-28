@@ -791,61 +791,56 @@ SERVICE_PARAMS: dict[str, ServiceParamSet] = {
       {
         "id": "project_type",
         "label": "Electrical work type",
-        "hint": "residential, commercial, or industrial"
+        "hint": "residential, commercial, industrial"
       },
       {
         "id": "scope_type",
         "label": "Scope of electrical work",
-        "hint": "full rewiring, new installation, load upgrade, or safety audit"
+        "hint": "full rewiring, new installation, load upgrade, audit"
       },
-      {
-        "id": "size_sqft",
-        "label": "Property area (sqft)",
-        "hint": "total property size in square feet"
-      },
-      {
-        "id": "load_requirement",
-        "label": "Approximate load (kW)",
-        "hint": "approximate load in kW (e.g. 5kW, 10kW) or 'not sure'"
-      },
-      {
-        "id": "safety_audit",
-        "label": "Include safety audit",
-        "hint": "yes or no"
-      },
-      {
-        "id": "budget",
-        "label": "Electrical work budget",
-        "hint": "rough budget in lakhs/INR"
-      },
-      {
-        "id": "timeline",
-        "label": "Project timeline",
-        "hint": "ASAP, 1 month, 3 months, or flexible"
-      },
-      {
-        "id": "location",
-        "label": "Project location",
-        "hint": "city and area"
-      },
-      {
-        "id": "contact_pref",
-        "label": "How to reach you",
-        "hint": "phone, WhatsApp, or email"
-      },
-
-    ],
-    "optional": [
       {
         "id": "current_system",
         "label": "Current electrical setup",
         "hint": "wiring age, DB capacity, meter type"
       },
       {
+        "id": "load_requirement",
+        "label": "Connected / required load (kW)",
+        "hint": "existing sanctioned load or new requirement"
+      },
+      {
+        "id": "safety_audit",
+        "label": "Electrical safety audit needed",
+        "hint": "yes/no – need audit before work"
+      },
+      {
+        "id": "budget",
+        "label": "Electrical work budget",
+        "hint": "total in lakhs/INR for labour + material"
+      },
+      {
+        "id": "timeline",
+        "label": "When to complete electrical work",
+        "hint": "ASAP, with renovation, phase-wise"
+      },
+      {
         "id": "preferred_start",
         "label": "When to start electrical work",
         "hint": "ASAP, after demolition"
       },
+      {
+        "id": "location",
+        "label": "Project location (city/area)",
+        "hint": "city and area where electrical work is"
+      },
+      {
+        "id": "contact_pref",
+        "label": "How to reach you",
+        "hint": "phone, WhatsApp, or email"
+      },
+      
+    ],
+    "optional": [
       {
         "id": "backup_need",
         "label": "Backup / inverter need",
