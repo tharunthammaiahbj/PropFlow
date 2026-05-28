@@ -1,4 +1,4 @@
-﻿"""
+"""
 Aadhya – Conversation Controller (quest-parity questionnaire)
 
 WhatsApp and Voice both route through the same quest-style engine:
@@ -1417,7 +1417,7 @@ class ConversationController:
                 if "?" in text and len(text) >= 60:
                     return text
                 # One retry: stricter.
-                retry_prompt = system_prompt + "\nReturn 2–3 sentences. Ask only one question ending with ‘?’."
+                retry_prompt = system_prompt + "\nReturn 2–3 sentences. Ask only one question ending with '?'."
                 try:
                     text2 = (
                         await get_llm_engine().chat(
@@ -1436,7 +1436,7 @@ class ConversationController:
                 # Deterministic fallback — always safe, q always defined.
                 qid = (dp_id or "").strip().lower()
                 hint = (dp_hint or "").strip()
-                q = f"To start, could you tell me more about the {dp_label.lower() if dp_label else ‘project’}?"
+                q = f"To start, could you tell me more about the {dp_label.lower() if dp_label else 'project'}?"
                 if hint and ("," in hint or " or " in hint.lower()):
                     q = f"To start, which option fits best — {hint}?"
                 elif qid.endswith("_sqft") or "sqft" in qid:
@@ -1449,7 +1449,7 @@ class ConversationController:
                     q = "To start, when would you like to begin?"
                 elif not hint:
                     q = "To start, could you share that detail?"
-                return f"Hi, I’m {expert_first} from PropFlow {service_label}{emoji_suffix} — Jessica just transferred you. {q}"
+                return f"Hi, I'm {expert_first} from PropFlow {service_label}{emoji_suffix} — Jessica just transferred you. {q}"
 
             # If specialist is active, skip Priya stages and let the quest engine take over.
             if stage == "SPECIALIST_ACTIVE":
@@ -1517,7 +1517,7 @@ class ConversationController:
                     extracted["__wa:stage"] = "PRIYA_SERVICE_PICK"
                 if not reply:
                     reply = (
-                        "Hi, I’m Jessica from PropFlow 👋 What are you looking for today—interiors, construction, painting, solar, plumbing, electrical, or home automation?"
+                        "Hi, I'm Jessica from PropFlow 👋 What are you looking for today—interiors, construction, painting, solar, plumbing, electrical, or home automation?"
                         if is_first
                         else "Which service is this for—interiors, construction, painting, solar, plumbing, electrical, or home automation?"
                     )
@@ -1868,7 +1868,7 @@ class ConversationController:
                     )
                     decl = await _llm_json(decline_prompt)
                     reply = str(decl.get("reply") or "").strip() or (
-                        "No problem — tell me if you’d like a different service or we can pick this up later."
+                        "No problem — tell me if you'd like a different service or we can pick this up later."
                     )
                     session.add_message(MessageRole.ASSISTANT, reply)
                     return AgentResponse(text=reply, session=session)
@@ -1938,7 +1938,7 @@ class ConversationController:
                     )
                     decl = await _llm_json(decline_prompt)
                     reply = str(decl.get("reply") or "").strip() or (
-                        "No problem — tell me if you’d like a different service or we can pick this up later."
+                        "No problem — tell me if you'd like a different service or we can pick this up later."
                     )
                     session.add_message(MessageRole.ASSISTANT, reply)
                     return AgentResponse(text=reply, session=session)
@@ -2172,7 +2172,7 @@ class ConversationController:
         # These utterances are usually the caller reacting to ASR/latency ("Are you listening?")
         # and should NOT trigger the off-topic guardrail.
         if _is_friction_complaint(user_message):
-            text = "I’m here — yes, I can hear you."
+            text = "I'm here — yes, I can hear you."
             if last_q:
                 text = f"{text} {last_q}"
             session.add_message(MessageRole.ASSISTANT, text)
@@ -2361,7 +2361,7 @@ class ConversationController:
 
             # Friction handler (must run BEFORE off-topic redirect).
             if _is_friction_complaint(user_message):
-                text = "I’m here — yes, I can hear you."
+                text = "I'm here — yes, I can hear you."
                 if last_q:
                     text = f"{text} {last_q}"
                 session.add_message(MessageRole.ASSISTANT, text)
