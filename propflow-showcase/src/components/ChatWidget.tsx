@@ -300,7 +300,7 @@ export default function ChatWidget({ onComplete }: ChatWidgetProps) {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={completed ? "Enquiry complete — see brief on the left" : "Type a message…"}
-              disabled={loading || completed}
+              disabled={completed}
               className="flex-1 text-sm rounded-2xl px-4 py-2.5 outline-none disabled:opacity-40 transition-all"
               style={{
                 background: "var(--bg)",
