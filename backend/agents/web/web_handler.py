@@ -1,0 +1,76 @@
+"""
+PropFlow – Web Demo Handler
+Simple REST endpoint for browser-based demo. Reuses the WhatsApp conversation flow
+without Twilio, webhooks, or any external dependencies.
+"""
+from __future__ import annotations
+from datetime import datetime
+
+from fastapi import APIRouter
+from pydantic import BaseModel
+
+from backend.schemas.session import Session, ConversationStage
+from backend.intelligence.conversation_controller import get_controller
+from backend.storage.redis_store import get_session, save_session
+from backend.questionnaire.conversation_engine import QUEST_PARAMETERS
+from backend.utils.logger import log_event
+
+router = APIRouter()
+
+
+class WebMessageRequest(BaseModel):
+    session_id: str
+    message: str
+
+
+class WebMessageResponse(BaseModel):
+    reply: str
+    completed: bool = False
+
+
+@router.post("/webhook/web", response_model=WebMessageResponse)
+async def web_webhook(body: WebMessageRequest):
+    session_id = f"web_{body.session_id}"
+    user_message = (body.message or "").strip()
+
+    session = await get_session(session_id)
+
+    if session is None:
+        now = datetime.utcnow()
+        session = Session(
+            session_id=session_id,
+            phone_number=f"web_{body.session_id}",
+            channel="whatsapp",
+            conversation_stage=ConversationStage.DISCOVERY,
+            created_at=now,
+            last_active=now,
+        )
+        session.extracted_fields = {
+            "__wa:stage": "PRIYA_SERVICE_PICK",
+            "__wa:first_message": True,
+        }
+        session.extracted_fields[QUEST_PARAMETERS] = {
+            "contact_pref": {
+                "value": "web",
+                "confidence": 1.0,
+                "ts": now.isoformat() + "Z",
+            }
+        }
+        await log_event("SESSION_START", session_id=session_id, data={"channel": "web"})
+
+    controller = get_controller()
+    try:
+        response = await controller.process_message(
+            session=session,
+            user_message=user_message,
+            channel="whatsapp",
+        )
+    except Exception as e:
+        await log_event("API_ERROR", session_id=session_id, data={"error": str(e)[:200]})
+        return WebMessageResponse(
+            reply="Give me just a moment — I'm getting things together.",
+            completed=False,
+        )
+
+    await save_session(response.session)
+    return WebMessageResponse(reply=response.text, completed=response.completed)

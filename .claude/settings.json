@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\Tharun Thammaiah.B.J\\\\Desktop\\\\PropFlow\" -Recurse -Force)",
+      "Bash(Select-Object FullName)",
+      "Bash(Sort-Object FullName)",
+      "Bash(Remove-Item -Recurse -Force \"c:\\\\Users\\\\Tharun Thammaiah.B.J\\\\Desktop\\\\PropFlow\\\\admin-ui\")",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git add *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\Tharun Thammaiah.B.J\\.claude\\projects\\c--Users-Tharun-Thammaiah-B-J-Desktop-PropFlow\\memory",
+      "c:\\Users\\Tharun Thammaiah.B.J\\Desktop\\PropFlow\\admin-ui"
+    ]
+  }
+}

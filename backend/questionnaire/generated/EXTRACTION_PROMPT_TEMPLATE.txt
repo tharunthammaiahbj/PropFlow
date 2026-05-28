@@ -1,0 +1,47 @@
+
+SYSTEM:
+Extract structured data from the user's response. Return STRICT JSON only — no markdown, no prose.
+
+BOT JUST ASKED: "<PREVIOUS_MSG>"
+ASKED_FIELD_ID: "<ASKED_FIELD_ID>"
+QUESTION_TYPE: "<QUESTION_TYPE>"
+USER REPLIED: "<MESSAGE>"
+
+ALLOWED FIELDS (use the EXACT id as JSON key):
+<DATAPOINTS>
+
+RULES:
+1. Extract ANY of the allowed fields that the user provided in this reply, even if they answered something we have not asked yet. Only extract fields in the list above.
+1b. If ASKED_FIELD_ID is present and the user reply is a short/numeric answer (e.g. "3000", "4m", "both"), prioritize extracting a value for that asked field when it fits.
+2. preferred_start = when PROJECT / WORK should begin. timeline = project DURATION (45 days, 2 months).
+3. yes/no fields (has_soil_test, has_approvals, etc.): "yes/done/of course/sure" → "yes"; "no/nope/not really" → "no".
+4. Numeric + sqft (plot_size_sqft, size_sqft, land_size_sqft, etc.): use the EXACT id that matches the asked question.
+5. rooms/BHK: "2BHK", "3BHK" etc. project_type: "villa", "apartment", "independent house", "penthouse" etc.
+6. Confidence: clear answer → 0.85–0.95; ambiguous ("maybe", "not sure") → 0.4; no signal → omit or value:null, confidence:0.
+
+YES TO MULTI-CHOICE:
+If QUESTION_TYPE is MULTI_CHOICE and the user reply is ONLY "yes"/"ok"/"sure"/"haan"/"howdu" (no other info),
+do NOT extract a value for the asked multi-choice field.
+
+ASR MISHEARING (voice): "six slacks"→"six lakhs", "to lacks"→"two lakhs", "free lakh"→"three lakhs". If a numeric/budget field was just asked and the answer sounds like a number word plus a garbled unit, interpret it as the closest Indian currency (lakhs/thousands) with confidence 0.7.
+
+GENEROUS INTERPRETATION — prefer a 0.65 extraction over null whenever the user clearly points at an option:
+- POSITIONAL: "the first one", "second", "the last" → the Nth item in the options the bot just offered.
+- PARTIAL/RELATED: "RCC"/"concrete roof"/"the flat one" when asked about roof_type (options include "flat RCC") → "flat RCC".
+- PREFERENCE-AS-ANSWER: "with battery backup" / "battery only" → grid_type=hybrid. "no battery, just savings" → on-grid. "remote site, no grid" → off-grid.
+- COLLOQUIAL NUMBERS: "around 3 kilowatts"/"3kW" → capacity_kw=3. "about a thousand square feet"/"around 1k sqft" → size_sqft=1000. "around three thousand square feet"/"roughly 3000 sqft" → size_sqft=3000.
+- IMPLIED YES/NO: "of course"/"definitely" → "yes"; "not really"/"haven't done that" → "no".
+- PAINTING AREA SCOPE (area_scope):
+  "whole house"/"full house"/"full-home"/"entire home"/"all rooms"/"full-flat" → area_scope="full house".
+  "only bedrooms"/"specific rooms"/"just the rooms"/"not the kitchen" → area_scope="specific rooms".
+  "outside walls"/"exterior only"/"only exterior" → area_scope="exterior only".
+Only return null when the user gave zero signal ("umm", "let me think", silence).
+
+COMPOUND ANSWERS — extract ALL fields the user volunteered in one reply:
+- "3 kilowatts for about 100 units a month" (asked capacity_kw) → capacity_kw=3 AND monthly_units=100.
+- "battery backup only, around 5kW" (asked grid_type) → grid_type=hybrid AND capacity_kw=5.
+- "2BHK villa in Bangalore" (asked project_type) → project_type="villa" AND rooms="2BHK" AND city="Bangalore".
+- "next month after monsoon" (asked preferred_start) → preferred_start="after monsoon / next month".
+Never discard signal the user volunteered.
+
+Return JSON only: {"exact_field_id":{"value":..., "confidence":0.0-1.0}, ...}

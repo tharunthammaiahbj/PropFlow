@@ -1,0 +1,32 @@
+# Core
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+pydantic>=2.10.0
+pydantic-settings>=2.7.0
+python-dotenv>=1.0.0
+python-multipart>=0.0.9
+
+# Gemini (new SDK)
+google-genai>=1.0.0
+
+# Twilio
+twilio>=9.0.0
+
+# HTTP client (Upstash Redis REST + Vapi)
+httpx>=0.28.0
+
+# Supabase (use a widely-compatible version)
+supabase>=2.9.0
+
+# Async utilities
+anyio>=4.0.0
+
+# Retry
+tenacity>=8.0.0
+
+# Date/time
+python-dateutil>=2.8.0
+
+# Dev
+pytest>=8.0.0
+pytest-asyncio>=0.24.0
