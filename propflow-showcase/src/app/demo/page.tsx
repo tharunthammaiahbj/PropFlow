@@ -16,7 +16,7 @@ export default function DemoPage() {
       <nav className="nav-blur flex-shrink-0 px-6 h-14 flex items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-2 text-sm transition-colors"
+          className="flex items-center gap-2 text-sm transition-opacity hover:opacity-70"
           style={{ color: "var(--muted)" }}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -40,35 +40,40 @@ export default function DemoPage() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-6xl mx-auto w-full px-4 py-5 gap-4">
 
         {/* Left info panel */}
-        <div className="lg:w-64 flex-shrink-0 overflow-y-auto chat-scroll">
+        <div className="lg:w-60 flex-shrink-0 overflow-y-auto chat-scroll">
           <div
-            className="card rounded-2xl p-5 h-full"
-            style={{ background: "var(--surface)" }}
+            className="rounded-2xl p-5 h-full"
+            style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
           >
+            {/* Sparkle icon — signals AI intelligence */}
             <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+              className="w-9 h-9 rounded-xl flex items-center justify-center mb-4"
               style={{ background: "var(--surface2)", border: "1px solid var(--border)" }}
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth={1.6}
+                strokeWidth={1.5}
                 style={{ color: "var(--accent)" }}
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"
+                />
               </svg>
             </div>
 
-            <p className="mono-label mb-2.5" style={{ color: "var(--muted)" }}>Interior Consultant</p>
+            <p className="mono-label mb-2" style={{ color: "var(--muted)" }}>Interior Consultant</p>
             <h1
-              className="font-display font-bold text-lg mb-2"
+              className="font-display font-semibold text-base mb-2.5 leading-snug"
               style={{ color: "var(--text)" }}
             >
               Talk to Sophia
             </h1>
-            <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--muted)" }}>
+            <p className="text-xs leading-relaxed mb-5" style={{ color: "var(--muted)", lineHeight: "1.65" }}>
               Sophia is PropFlow&apos;s AI interior design consultant. She collects everything
               your team needs through natural conversation.
             </p>
@@ -80,10 +85,10 @@ export default function DemoPage() {
                 "Same AI that runs on WhatsApp and live phone calls",
                 "Conversation saved in your browser — refresh safely",
               ].map((item) => (
-                <div key={item} className="flex gap-2.5 items-start">
+                <div key={item} className="flex gap-2 items-start">
                   <span
-                    className="mt-0.5 flex-shrink-0 font-bold text-xs"
-                    style={{ color: "var(--accent)" }}
+                    className="mt-px flex-shrink-0 text-xs font-bold"
+                    style={{ color: "var(--accent)", opacity: 0.8 }}
                   >
                     ✓
                   </span>
@@ -110,8 +115,8 @@ export default function DemoPage() {
         {/* Chat panel */}
         <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
           <div
-            className="card rounded-2xl flex flex-col overflow-hidden flex-1"
-            style={{ background: "var(--surface)" }}
+            className="rounded-2xl flex flex-col overflow-hidden flex-1"
+            style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
           >
             <ChatWidget />
           </div>

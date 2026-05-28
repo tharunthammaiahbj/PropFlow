@@ -21,10 +21,10 @@ function generateSessionId(): string {
 
 function TypingIndicator() {
   return (
-    <div className="flex gap-1 items-center px-4 py-3">
-      <span className="typing-dot w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--accent)" }} />
-      <span className="typing-dot w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--accent)" }} />
-      <span className="typing-dot w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--accent)" }} />
+    <div className="flex gap-1.5 items-center px-4 py-3.5">
+      <span className="typing-dot w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--accent)", opacity: 0.7 }} />
+      <span className="typing-dot w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--accent)", opacity: 0.7 }} />
+      <span className="typing-dot w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--accent)", opacity: 0.7 }} />
     </div>
   );
 }
@@ -71,7 +71,7 @@ export default function ChatWidget() {
     setInput("");
     setLoading(true);
     try {
-      const res  = await fetch("/api/webhook/web", {
+      const res = await fetch("/api/webhook/web", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ session_id: sessionId, message: text.trim() }),
@@ -96,7 +96,7 @@ export default function ChatWidget() {
     setStarted(true);
     setLoading(true);
     try {
-      const res  = await fetch("/api/webhook/web", {
+      const res = await fetch("/api/webhook/web", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ session_id: sessionId, message: "hi" }),
@@ -128,53 +128,61 @@ export default function ChatWidget() {
   return (
     <div className="flex flex-col h-full overflow-hidden">
 
-      {/* Header */}
+      {/* ── Header ─────────────────────────────── */}
       <div
-        className="flex items-center justify-between px-5 py-3.5 flex-shrink-0"
+        className="flex items-center justify-between px-5 py-4 flex-shrink-0"
         style={{ borderBottom: "1px solid var(--border)" }}
       >
         <div className="flex items-center gap-3">
+          {/* Avatar with accent ring */}
           <div
-            className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
-            style={{ background: "var(--surface2)", border: "1px solid var(--border)" }}
+            className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+            style={{
+              background: "var(--surface2)",
+              outline: "1.5px solid rgba(156,204,101,0.22)",
+              outlineOffset: "2px",
+            }}
           >
-            <span className="font-bold text-sm" style={{ color: "var(--accent)" }}>S</span>
+            <span className="font-display font-bold text-sm" style={{ color: "var(--accent)" }}>S</span>
           </div>
           <div>
-            <div
-              className="text-sm font-semibold font-display"
-              style={{ color: "var(--text)" }}
-            >
+            <div className="text-sm font-semibold font-display" style={{ color: "var(--text)" }}>
               Sophia
             </div>
-            <div className="text-xs" style={{ color: "var(--muted)" }}>
-              Interior Design Consultant · PropFlow
+            <div className="flex items-center gap-1.5">
+              {/* Online indicator */}
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "var(--accent)", opacity: 0.8 }} />
+              <span className="text-xs" style={{ color: "var(--muted)" }}>
+                Interior Design Consultant · PropFlow
+              </span>
             </div>
           </div>
         </div>
+        {/* Reset — minimal text only */}
         <button
           onClick={resetConversation}
-          className="text-xs px-2.5 py-1 rounded-lg transition-colors"
-          style={{ color: "var(--muted)", border: "1px solid var(--border)" }}
+          className="text-xs transition-opacity hover:opacity-60"
+          style={{ color: "var(--muted)" }}
           title="Start a new conversation"
         >
           Reset
         </button>
       </div>
 
-      {/* Messages */}
+      {/* ── Messages ───────────────────────────── */}
       <div
-        className="flex-1 overflow-y-auto chat-scroll px-4 py-5 space-y-3"
+        className="flex-1 overflow-y-auto chat-scroll px-5 py-5 space-y-4"
         style={{ background: "var(--bg)" }}
       >
         {!started ? (
           <div className="flex flex-col items-center justify-center h-full text-center gap-5 px-4">
             <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center"
+              className="w-12 h-12 rounded-2xl flex items-center justify-center"
               style={{ background: "var(--surface2)", border: "1px solid var(--border)" }}
             >
+              {/* Sparkle / AI icon */}
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={1.5}
@@ -184,28 +192,22 @@ export default function ChatWidget() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                  d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"
                 />
               </svg>
             </div>
             <div>
-              <div
-                className="font-display font-bold text-base mb-1.5"
-                style={{ color: "var(--text)" }}
-              >
+              <div className="font-display font-bold text-base mb-1.5" style={{ color: "var(--text)" }}>
                 Talk to Sophia
               </div>
-              <div
-                className="text-sm max-w-xs leading-relaxed"
-                style={{ color: "var(--muted)" }}
-              >
-                PropFlow&apos;s AI interior design consultant. She&apos;ll understand your project
-                and collect everything your team needs.
+              <div className="text-sm leading-relaxed max-w-[260px]" style={{ color: "var(--muted)" }}>
+                PropFlow&apos;s AI interior design consultant. She&apos;ll collect everything
+                your team needs through natural conversation.
               </div>
             </div>
             <button
               onClick={startConversation}
-              className="btn-primary text-sm font-semibold px-6 py-2.5 rounded-xl"
+              className="btn-primary text-sm px-6 py-2.5 rounded-xl"
             >
               Start conversation
             </button>
@@ -217,31 +219,38 @@ export default function ChatWidget() {
                 key={i}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                <div
-                  className={`max-w-[78%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                    msg.role === "user" ? "rounded-br-sm" : "rounded-bl-sm"
-                  }`}
-                  style={
-                    msg.role === "user"
-                      ? { background: "#2a4e18", color: "#c8e0b0" }
-                      : {
-                          background: "var(--surface)",
-                          border: "1px solid var(--border)",
-                          color: "var(--text)",
-                        }
-                  }
-                >
-                  {msg.content}
-                </div>
+                {msg.role === "user" ? (
+                  /* User bubble — tight fit, pill-like for short replies */
+                  <div
+                    className="text-sm leading-relaxed rounded-2xl rounded-br-md px-4 py-2.5"
+                    style={{
+                      background: "#253f14",
+                      color: "#c2dda6",
+                      maxWidth: "75%",
+                      width: "fit-content",
+                    }}
+                  >
+                    {msg.content}
+                  </div>
+                ) : (
+                  /* AI bubble — no border, just surface background */
+                  <div
+                    className="text-sm leading-relaxed rounded-2xl rounded-bl-md px-4 py-3"
+                    style={{
+                      background: "var(--surface)",
+                      color: "var(--text)",
+                      maxWidth: "82%",
+                    }}
+                  >
+                    {msg.content}
+                  </div>
+                )}
               </div>
             ))}
 
             {loading && (
               <div className="flex justify-start">
-                <div
-                  className="rounded-2xl rounded-bl-sm"
-                  style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
-                >
+                <div className="rounded-2xl rounded-bl-md" style={{ background: "var(--surface)" }}>
                   <TypingIndicator />
                 </div>
               </div>
@@ -250,11 +259,12 @@ export default function ChatWidget() {
             {completed && (
               <div className="flex justify-center pt-2">
                 <div
-                  className="rounded-xl px-4 py-3 text-xs text-center max-w-xs"
+                  className="rounded-xl px-4 py-3 text-xs text-center"
                   style={{
                     background: "var(--surface2)",
-                    border: "1px solid rgba(156,204,101,0.16)",
+                    border: "1px solid rgba(156,204,101,0.14)",
                     color: "var(--muted)",
+                    maxWidth: "280px",
                   }}
                 >
                   Enquiry complete — a PropFlow specialist will follow up shortly.
@@ -266,13 +276,16 @@ export default function ChatWidget() {
         <div ref={bottomRef} />
       </div>
 
-      {/* Input */}
+      {/* ── Input ──────────────────────────────── */}
       {started && (
         <div
-          className="px-4 py-3 flex-shrink-0"
-          style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}
+          className="px-4 py-3.5 flex-shrink-0"
+          style={{
+            borderTop: "1px solid rgba(31,45,31,0.6)",
+            background: "var(--surface)",
+          }}
         >
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2.5 items-center">
             <input
               ref={inputRef}
               type="text"
@@ -281,28 +294,31 @@ export default function ChatWidget() {
               onKeyDown={handleKeyDown}
               placeholder={completed ? "Enquiry complete" : "Type a message…"}
               disabled={loading || completed}
-              className="flex-1 text-sm rounded-xl px-4 py-2.5 outline-none disabled:opacity-40 transition-all"
+              className="flex-1 text-sm rounded-2xl px-4 py-2.5 outline-none disabled:opacity-40 transition-all"
               style={{
-                background: "var(--surface2)",
+                background: "var(--bg)",
                 border: "1px solid var(--border)",
                 color: "var(--text)",
                 fontFamily: "var(--font-sans), system-ui, sans-serif",
               }}
             />
+            {/* Send button — circular with clean arrow icon */}
             <button
               onClick={() => sendMessage(input)}
               disabled={loading || !input.trim() || completed}
-              className="w-9 h-9 rounded-xl flex items-center justify-center transition-all flex-shrink-0 disabled:opacity-25"
+              className="w-9 h-9 rounded-full flex items-center justify-center transition-all flex-shrink-0 disabled:opacity-25 hover:scale-105"
               style={{ background: "var(--accent)" }}
             >
               <svg
                 className="w-4 h-4"
+                viewBox="0 0 24 24"
                 fill="none"
                 stroke="#0d110d"
-                strokeWidth={2.2}
-                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </button>
           </div>
