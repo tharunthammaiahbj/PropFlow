@@ -1400,46 +1400,51 @@ class ConversationController:
                     f"Specialist first name: {expert_first}\n"
                     f"Project facts to recap: {recap_facts}\n"
                 )
-                text = (
-                    await get_llm_engine().chat(
-                        session_id=f"{session.session_id}:specialist_welcome_text",
-                        user_message="Write the welcome message now.",
-                        system_prompt=system_prompt,
-                        history=[],
-                        temperature=0.2,
-                        max_tokens=280,
-                    )
-                ).strip()
+                try:
+                    text = (
+                        await get_llm_engine().chat(
+                            session_id=f"{session.session_id}:specialist_welcome_text",
+                            user_message="Write the welcome message now.",
+                            system_prompt=system_prompt,
+                            history=[],
+                            temperature=0.2,
+                            max_tokens=280,
+                        )
+                    ).strip()
+                except Exception:
+                    text = ""
                 # Treat ultra-short completions as provider truncation; retry once.
                 if "?" in text and len(text) >= 60:
                     return text
                 # One retry: stricter.
-                retry_prompt = system_prompt + "\nReturn 2–3 sentences. Ask only one question ending with '?'."
-                text2 = (
-                    await get_llm_engine().chat(
-                        session_id=f"{session.session_id}:specialist_welcome_text_retry",
-                        user_message="Write the welcome message now.",
-                        system_prompt=retry_prompt,
-                        history=[],
-                        temperature=0.0,
-                        max_tokens=320,
-                    )
-                ).strip()
+                retry_prompt = system_prompt + "\nReturn 2–3 sentences. Ask only one question ending with ‘?’."
+                try:
+                    text2 = (
+                        await get_llm_engine().chat(
+                            session_id=f"{session.session_id}:specialist_welcome_text_retry",
+                            user_message="Write the welcome message now.",
+                            system_prompt=retry_prompt,
+                            history=[],
+                            temperature=0.0,
+                            max_tokens=320,
+                        )
+                    ).strip()
+                except Exception:
+                    text2 = ""
                 if "?" in text2 and len(text2) >= 60:
                     return text2
-                # Deterministic fallback (still natural + option-based).
-                # Avoid label/hint fragments; phrase as a real consultant question.
+                # Deterministic fallback — always safe, q always defined.
                 qid = (dp_id or "").strip().lower()
                 hint = (dp_hint or "").strip()
-                # If hint lists options, use them so the question is specific (e.g. roof_type).
+                q = f"To start, could you tell me more about the {dp_label.lower() if dp_label else ‘project’}?"
                 if hint and ("," in hint or " or " in hint.lower()):
                     q = f"To start, which option fits best — {hint}?"
-                if qid.endswith("_sqft") or "sqft" in qid:
-                    q = "To start, roughly what paintable area are we talking in square feet?"
+                elif qid.endswith("_sqft") or "sqft" in qid:
+                    q = "To start, roughly what area are we talking in square feet?"
                 elif qid.endswith("_kw") or "capacity" in qid:
-                    q = "To start, what solar capacity are you aiming for in kW?"
+                    q = "To start, what capacity are you aiming for in kW?"
                 elif "budget" in qid:
-                    q = "To start, what budget are you comfortable with for this project?"
+                    q = "To start, what budget are you comfortable with?"
                 elif "timeline" in qid or "preferred_start" in qid or "start" in qid:
                     q = "To start, when would you like to begin?"
                 elif not hint:
@@ -1835,11 +1840,14 @@ class ConversationController:
                     qid2 = str(extracted.get("__quest:service_id") or "")
                     if qid2:
                         await _prefill_params_from_history(qid2)
-                    reply = await _specialist_welcome_reply(
-                        service_id=qid2,
-                        service_label=service_label2,
-                        expert_first=expert2,
-                    )
+                    try:
+                        reply = await _specialist_welcome_reply(
+                            service_id=qid2,
+                            service_label=service_label2,
+                            expert_first=expert2,
+                        )
+                    except Exception:
+                        reply = f"Great, you're connected! To kick things off — what type of {service_label2 or svc_bucket} work are you looking for?"
                     extracted["__wa:stage"] = "SPECIALIST_ACTIVE"
                     session.add_message(MessageRole.ASSISTANT, reply)
                     return AgentResponse(text=reply, session=session)
@@ -1943,11 +1951,14 @@ class ConversationController:
                 qid2 = str(extracted.get("__quest:service_id") or "")
                 if qid2:
                     await _prefill_params_from_history(qid2)
-                reply = await _specialist_welcome_reply(
-                    service_id=qid2,
-                    service_label=service_label2,
-                    expert_first=expert2,
-                )
+                try:
+                    reply = await _specialist_welcome_reply(
+                        service_id=qid2,
+                        service_label=service_label2,
+                        expert_first=expert2,
+                    )
+                except Exception:
+                    reply = f"Great, you're connected! To kick things off — what type of {service_label2 or svc_bucket} work are you looking for?"
                 extracted["__wa:stage"] = "SPECIALIST_ACTIVE"
                 session.add_message(MessageRole.ASSISTANT, reply)
                 return AgentResponse(text=reply, session=session)
