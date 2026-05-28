@@ -29,7 +29,7 @@ export default function DemoPage() {
             className="w-6 h-6 rounded-md flex items-center justify-center"
             style={{ background: "var(--accent)" }}
           >
-            <span className="font-black text-[10px]" style={{ color: "#111411" }}>P</span>
+            <span className="font-black text-[10px]" style={{ color: "#0d110d" }}>P</span>
           </div>
           <span className="font-semibold tracking-tight text-sm">PropFlow</span>
         </div>
@@ -37,29 +37,43 @@ export default function DemoPage() {
       </nav>
 
       {/* Body */}
-      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-6xl mx-auto w-full px-4 py-6 gap-5">
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-6xl mx-auto w-full px-4 py-5 gap-4">
 
         {/* Left info panel */}
-        <div className="lg:w-[17rem] flex-shrink-0 overflow-y-auto chat-scroll">
-          <div className="card rounded-2xl p-6 h-full" style={{ background: "var(--surface)" }}>
+        <div className="lg:w-64 flex-shrink-0 overflow-y-auto chat-scroll">
+          <div
+            className="card rounded-2xl p-5 h-full"
+            style={{ background: "var(--surface)" }}
+          >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
               style={{ background: "var(--surface2)", border: "1px solid var(--border)" }}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.6}
-                style={{ color: "var(--accent)" }} viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.6}
+                style={{ color: "var(--accent)" }}
+                viewBox="0 0 24 24"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
             </div>
 
-            <p className="mono-label mb-3" style={{ color: "var(--muted)" }}>Interior Consultant</p>
-            <h1 className="font-bold mb-2 text-base" style={{ color: "var(--text)" }}>Talk to Sophia</h1>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--muted)" }}>
-              Sophia is PropFlow&apos;s interior design consultant. She&apos;ll understand your
-              project through natural conversation and collect everything your team needs.
+            <p className="mono-label mb-2.5" style={{ color: "var(--muted)" }}>Interior Consultant</p>
+            <h1
+              className="font-display font-bold text-lg mb-2"
+              style={{ color: "var(--text)" }}
+            >
+              Talk to Sophia
+            </h1>
+            <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--muted)" }}>
+              Sophia is PropFlow&apos;s AI interior design consultant. She collects everything
+              your team needs through natural conversation.
             </p>
 
-            <div className="space-y-3 mb-6">
+            <div className="space-y-2.5 mb-5">
               {[
                 "Collects project type, city, area, budget, timeline & more",
                 "Handles pricing guardrails & off-topic messages gracefully",
@@ -67,18 +81,27 @@ export default function DemoPage() {
                 "Conversation saved in your browser — refresh safely",
               ].map((item) => (
                 <div key={item} className="flex gap-2.5 items-start">
-                  <span className="mt-0.5 flex-shrink-0 font-bold text-xs" style={{ color: "var(--accent)" }}>✓</span>
-                  <span className="text-xs leading-relaxed" style={{ color: "var(--muted)" }}>{item}</span>
+                  <span
+                    className="mt-0.5 flex-shrink-0 font-bold text-xs"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    ✓
+                  </span>
+                  <span className="text-xs leading-relaxed" style={{ color: "var(--muted)" }}>
+                    {item}
+                  </span>
                 </div>
               ))}
             </div>
 
-            <div style={{ borderTop: "1px solid var(--border)", paddingTop: "1.25rem" }}>
-              <p className="mono-label mb-3" style={{ color: "var(--muted)" }}>Services available</p>
+            <div style={{ borderTop: "1px solid var(--border)", paddingTop: "1rem" }}>
+              <p className="mono-label mb-2.5" style={{ color: "var(--muted)" }}>Services</p>
               <div className="flex flex-wrap gap-1.5">
-                {["Interiors", "Construction", "Solar", "Painting", "Plumbing", "Electrical"].map((s) => (
-                  <span key={s} className="tag">{s}</span>
-                ))}
+                {["Interiors", "Construction", "Solar", "Painting", "Plumbing", "Electrical"].map(
+                  (s) => (
+                    <span key={s} className="tag">{s}</span>
+                  )
+                )}
               </div>
             </div>
           </div>
