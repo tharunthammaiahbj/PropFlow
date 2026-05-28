@@ -3,7 +3,7 @@ import ChatWidget from "@/components/ChatWidget";
 
 export const metadata = {
   title: "Live Demo — PropFlow",
-  description: "Talk to Sophia, PropFlow's AI interior design consultant.",
+  description: "Talk to Jessica, PropFlow's AI consultant.",
 };
 
 export default function DemoPage() {
@@ -66,16 +66,16 @@ export default function DemoPage() {
               </svg>
             </div>
 
-            <p className="mono-label mb-2" style={{ color: "var(--muted)" }}>Interior Consultant</p>
+            <p className="mono-label mb-2" style={{ color: "var(--muted)" }}>AI Consultant</p>
             <h1
               className="font-display font-semibold text-base mb-2.5 leading-snug"
               style={{ color: "var(--text)" }}
             >
-              Talk to Sophia
+              Talk to Jessica
             </h1>
             <p className="text-xs leading-relaxed mb-5" style={{ color: "var(--muted)", lineHeight: "1.65" }}>
-              Sophia is PropFlow&apos;s AI interior design consultant. She collects everything
-              your team needs through natural conversation.
+              Jessica is PropFlow&apos;s AI consultant. She handles all services and collects
+              everything your team needs through natural conversation.
             </p>
 
             <div className="space-y-2.5 mb-5">

@@ -147,13 +147,13 @@ export default function ChatWidget() {
           </div>
           <div>
             <div className="text-sm font-semibold font-display" style={{ color: "var(--text)" }}>
-              Sophia
+              Jessica
             </div>
             <div className="flex items-center gap-1.5">
               {/* Online indicator */}
               <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "var(--accent)", opacity: 0.8 }} />
               <span className="text-xs" style={{ color: "var(--muted)" }}>
-                Interior Design Consultant · PropFlow
+                AI Consultant · PropFlow
               </span>
             </div>
           </div>
@@ -198,11 +198,11 @@ export default function ChatWidget() {
             </div>
             <div>
               <div className="font-display font-bold text-base mb-1.5" style={{ color: "var(--text)" }}>
-                Talk to Sophia
+                Talk to Jessica
               </div>
               <div className="text-sm leading-relaxed max-w-[260px]" style={{ color: "var(--muted)" }}>
-                PropFlow&apos;s AI interior design consultant. She&apos;ll collect everything
-                your team needs through natural conversation.
+                PropFlow&apos;s AI consultant. She&apos;ll understand your project and
+                collect everything your team needs through natural conversation.
               </div>
             </div>
             <button

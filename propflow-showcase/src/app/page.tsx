@@ -85,7 +85,7 @@ const features = [
   {
     num: "02",
     title: "Named AI Personas",
-    desc: "Each service has a dedicated consultant — Sophia for interiors, Ryan for construction. Warm, expert, and locally aware.",
+    desc: "Each service has a dedicated AI consultant — Jessica routes enquiries and connects clients to the right specialist. Warm, expert, and locally aware.",
   },
   {
     num: "03",
@@ -376,7 +376,7 @@ export default function HomePage() {
               className="text-lg leading-relaxed mb-10"
               style={{ color: "var(--muted)", maxWidth: "38rem" }}
             >
-              Talk to Sophia — PropFlow&apos;s interior design consultant — right here in the
+              Talk to Jessica — PropFlow&apos;s AI consultant — right here in the
               browser. No WhatsApp required.
             </p>
             <Link href="/demo" className="btn-primary px-10 py-4 rounded-xl text-sm">
