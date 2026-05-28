@@ -145,24 +145,42 @@ export default function ChatWidget({ onComplete }: ChatWidgetProps) {
         className="flex items-center justify-between px-5 py-4 flex-shrink-0"
         style={{ borderBottom: "1px solid var(--border)" }}
       >
-        <div className="flex items-center gap-3">
+        {/* Pill badge — avatar + name + status, all in one rounded-full capsule */}
+        <div
+          className="flex items-center gap-2.5 rounded-full"
+          style={{
+            background: "rgba(156, 204, 101, 0.06)",
+            border: "1px solid rgba(156, 204, 101, 0.20)",
+            padding: "4px 14px 4px 4px",
+          }}
+        >
           <div
-            className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-            style={{
-              background: "var(--surface2)",
-              outline: "1.5px solid rgba(156,204,101,0.22)",
-              outlineOffset: "2px",
-            }}
+            className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+            style={{ background: "rgba(156, 204, 101, 0.14)" }}
           >
-            <span className="font-display font-bold text-sm" style={{ color: "var(--accent)" }}>J</span>
+            <span
+              className="font-display font-bold text-sm"
+              style={{ color: "var(--accent)" }}
+            >
+              J
+            </span>
           </div>
-          <div>
-            <div className="text-sm font-semibold font-display" style={{ color: "var(--text)" }}>
+          <div className="flex flex-col leading-tight">
+            <div
+              className="text-sm font-semibold font-display"
+              style={{ color: "var(--text)" }}
+            >
               Jessica
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "var(--accent)", opacity: 0.8 }} />
-              <span className="text-xs" style={{ color: "var(--muted)" }}>
+              <span
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0 animate-pulse"
+                style={{ background: "var(--accent)" }}
+              />
+              <span
+                className="text-[0.68rem]"
+                style={{ color: "rgba(244,244,239,0.55)" }}
+              >
                 AI Consultant · PropFlow
               </span>
             </div>

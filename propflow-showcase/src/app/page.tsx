@@ -159,7 +159,7 @@ export default function HomePage() {
         <div className="relative max-w-6xl mx-auto">
           {/* Label row */}
           <div className="flex items-center gap-3 mb-8 fade-up">
-            <span className="mono-label" style={{ color: "var(--muted)" }}>AI Intake Platform</span>
+            <span className="mono-label" style={{ color: "var(--muted)" }}>AI Consultant Platform</span>
             <span
               className="w-8 h-px inline-block flex-shrink-0"
               style={{ background: "var(--border)" }}
@@ -402,7 +402,7 @@ export default function HomePage() {
             </div>
             <span className="font-display text-xs font-medium" style={{ color: "var(--muted)" }}>PropFlow</span>
           </div>
-          <span className="text-xs" style={{ color: "var(--muted)" }}>AI Intake Platform</span>
+          <span className="text-xs" style={{ color: "var(--muted)" }}>AI Consultant Platform</span>
         </div>
       </footer>
     </main>
