@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --bg:             #111411;
-  --surface:        #171b16;
-  --surface2:       #1d231b;
+  --bg:             #0a0a0a;
+  --surface:        #131313;
+  --surface2:       #1a1a1a;
   --border:         rgba(244, 244, 239, 0.08);
   --border-strong:  rgba(244, 244, 239, 0.18);
   --accent:         #9ccc65;
@@ -51,6 +51,31 @@ body {
   background: radial-gradient(circle, rgba(156,204,101,0.10) 0%, transparent 60%);
   pointer-events: none;
   filter: blur(20px);
+}
+
+/* Pill badge — rounded-full status capsule with pulsing accent dot.
+   Use for hero label rows, status indicators, persona headers. */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(156, 204, 101, 0.07);
+  border: 1px solid rgba(156, 204, 101, 0.22);
+  font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
+}
+.pill-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(156, 204, 101, 0.45);
 }
 
 /* Card */

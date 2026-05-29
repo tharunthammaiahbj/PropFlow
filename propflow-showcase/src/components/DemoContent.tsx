@@ -264,11 +264,16 @@ export default function DemoContent() {
 
   return (
     <div
-      className="h-screen flex flex-col overflow-hidden"
+      className="relative h-screen flex flex-col overflow-hidden"
       style={{ background: "var(--bg)", color: "var(--text)" }}
     >
+      {/* Ambient accent glow */}
+      <div
+        className="accent-glow-blob"
+        style={{ top: "-12rem", right: "-10rem", zIndex: 0 }}
+      />
       {/* Nav */}
-      <nav className="nav-blur flex-shrink-0 px-6 h-14 grid grid-cols-3 items-center">
+      <nav className="nav-blur flex-shrink-0 px-6 h-14 grid grid-cols-3 items-center relative z-10">
         <Link
           href="/"
           className="flex items-center gap-2 text-sm transition-opacity hover:opacity-70 justify-self-start"
@@ -297,7 +302,7 @@ export default function DemoContent() {
       </nav>
 
       {/* Body */}
-      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-6xl mx-auto w-full px-4 py-5 gap-4">
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-6xl mx-auto w-full px-4 py-5 gap-4 relative z-10">
 
         {/* Left panel — transforms on completion */}
         <div className="lg:w-60 flex-shrink-0 overflow-y-auto chat-scroll">

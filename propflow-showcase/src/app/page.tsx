@@ -159,14 +159,12 @@ export default function HomePage() {
         />
 
         <div className="relative max-w-6xl mx-auto">
-          {/* Label row */}
-          <div className="flex items-center gap-3 mb-6 fade-up">
-            <span className="mono-label" style={{ color: "var(--muted)" }}>AI Consultant Platform</span>
-            <span
-              className="w-8 h-px inline-block flex-shrink-0"
-              style={{ background: "var(--border)" }}
-            />
-            <span className="mono-label" style={{ color: "var(--muted)" }}>Live Demo Available</span>
+          {/* Hero pill badge */}
+          <div className="mb-6 fade-up">
+            <div className="pill-badge">
+              <span className="dot animate-pulse" />
+              <span>AI Consultant Platform · Live Demo</span>
+            </div>
           </div>
 
           {/* Two-column grid */}
@@ -257,10 +255,10 @@ export default function HomePage() {
           <div className="mb-16">
             <p className="mono-label mb-4" style={{ color: "var(--muted)" }}>Process</p>
             <h2
-              className="font-display font-bold tracking-tight mb-4"
-              style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)" }}
+              className="font-display font-bold tracking-tight mb-4 leading-[1.05]"
+              style={{ fontSize: "clamp(2.5rem, 4.5vw, 4rem)" }}
             >
-              How it works
+              Three steps, one structured brief.
             </h2>
             <p className="font-reading max-w-md text-base leading-relaxed" style={{ color: "rgba(244,244,239,0.65)" }}>
               A client reaches out. PropFlow handles the intake. Your team receives a
@@ -309,10 +307,10 @@ export default function HomePage() {
           <div className="mb-16">
             <p className="mono-label mb-4" style={{ color: "var(--muted)" }}>Capabilities</p>
             <h2
-              className="font-display font-bold tracking-tight mb-4"
-              style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)" }}
+              className="font-display font-bold tracking-tight mb-4 leading-[1.05]"
+              style={{ fontSize: "clamp(2.5rem, 4.5vw, 4rem)" }}
             >
-              What PropFlow does
+              Built for premium service businesses.
             </h2>
             <p className="font-reading text-base leading-relaxed" style={{ color: "rgba(244,244,239,0.65)" }}>
               Production-grade AI intake, built for property and design services.
@@ -344,22 +342,22 @@ export default function HomePage() {
           <div className="mb-12">
             <p className="mono-label mb-4" style={{ color: "var(--muted)" }}>Stack</p>
             <h2
-              className="font-display font-bold tracking-tight mb-2"
-              style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)" }}
+              className="font-display font-bold tracking-tight mb-3 leading-[1.05]"
+              style={{ fontSize: "clamp(2.5rem, 4.5vw, 4rem)" }}
             >
-              Built with
+              Production stack, end to end.
             </h2>
             <p className="font-reading text-base leading-relaxed" style={{ color: "rgba(244,244,239,0.65)" }}>
-              Production-grade. Deployed and live.
+              Deployed and live.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2.5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {stack.map((s) => (
-              <div key={s.label} className="card rounded-xl px-4 py-3 cursor-default">
-                <div className="text-sm font-semibold" style={{ color: "var(--text)" }}>
+              <div key={s.label} className="card rounded-xl px-5 py-4 cursor-default">
+                <div className="text-sm font-semibold mb-1" style={{ color: "var(--text)" }}>
                   {s.label}
                 </div>
-                <div className="text-xs mt-0.5" style={{ color: "var(--muted)" }}>{s.sub}</div>
+                <div className="mono-label" style={{ color: "var(--muted)" }}>{s.sub}</div>
               </div>
             ))}
           </div>
@@ -404,7 +402,7 @@ export default function HomePage() {
             </div>
             <span className="font-display text-xs font-medium" style={{ color: "var(--muted)" }}>PropFlow</span>
           </div>
-          <span className="text-xs" style={{ color: "var(--muted)" }}>AI Consultant Platform</span>
+          <span className="mono-label" style={{ color: "var(--muted)" }}>AI Consultant · Platform</span>
         </div>
       </footer>
     </main>
