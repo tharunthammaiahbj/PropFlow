@@ -185,12 +185,11 @@ body {
   letter-spacing: -0.005em;
 }
 
-/* Nav blur */
+/* Nav — fully transparent at top, subtle frosted blur when content scrolls beneath */
 .nav-blur {
-  background: rgba(17, 20, 17, 0.92);
+  background: transparent;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(244, 244, 239, 0.08);
 }
 
 /* Monospace label */

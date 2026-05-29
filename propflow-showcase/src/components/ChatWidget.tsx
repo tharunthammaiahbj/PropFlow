@@ -347,7 +347,7 @@ export default function ChatWidget({ onComplete }: ChatWidgetProps) {
                 className="w-4 h-4"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#0d110d"
+                stroke="#0a0a0a"
                 strokeWidth={2.5}
                 strokeLinecap="round"
                 strokeLinejoin="round"

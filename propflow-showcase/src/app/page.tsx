@@ -132,7 +132,7 @@ export default function HomePage() {
               className="w-6 h-6 rounded-md flex items-center justify-center"
               style={{ background: "var(--accent)" }}
             >
-              <span className="font-black text-[10px]" style={{ color: "#0d110d" }}>P</span>
+              <span className="font-black text-[10px]" style={{ color: "#0a0a0a" }}>P</span>
             </div>
             <span className="font-display font-semibold text-base tracking-tight" style={{ color: "var(--text)" }}>
               PropFlow
@@ -208,13 +208,13 @@ export default function HomePage() {
                 >
                   <span
                     className="font-semibold text-sm tracking-tight"
-                    style={{ color: "#0d110d" }}
+                    style={{ color: "#0a0a0a" }}
                   >
                     Try the live demo
                   </span>
                   <div
                     className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 transition-transform group-hover:translate-x-0.5"
-                    style={{ background: "#0d110d" }}
+                    style={{ background: "#0a0a0a" }}
                   >
                     <svg
                       className="w-4 h-4"
@@ -366,7 +366,7 @@ export default function HomePage() {
 
       {/* ── CTA ───────────────────────────────────── */}
       <section className="py-36 px-6" style={{ borderTop: "1px solid var(--border)" }}>
-        <div className="relative max-w-6xl mx-auto overflow-hidden">
+        <div className="relative max-w-3xl mx-auto overflow-hidden text-center">
           <div className="absolute inset-0 hero-glow pointer-events-none" />
           <div className="relative">
             <p className="mono-label mb-6" style={{ color: "var(--muted)" }}>Demo</p>
@@ -377,15 +377,41 @@ export default function HomePage() {
               See it in <span className="accent-italic">action.</span>
             </h2>
             <p
-              className="font-reading text-lg leading-relaxed mb-10"
+              className="font-reading text-lg leading-relaxed mb-10 mx-auto"
               style={{ color: "rgba(244,244,239,0.7)", maxWidth: "38rem" }}
             >
               Talk to Jessica — PropFlow&apos;s AI consultant — right here in the
               browser. No WhatsApp required.
             </p>
-            <Link href="/demo" className="btn-primary px-10 py-4 rounded-xl text-sm">
-              Start conversation →
-            </Link>
+            <div className="flex justify-center">
+              <Link
+                href="/demo"
+                className="group inline-flex items-center justify-between rounded-full transition-opacity hover:opacity-90"
+                style={{
+                  background: "var(--accent)",
+                  padding: "5px 5px 5px 26px",
+                  minWidth: "280px",
+                }}
+              >
+                <span className="font-semibold text-sm tracking-tight" style={{ color: "#0a0a0a" }}>
+                  Start conversation
+                </span>
+                <div
+                  className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 transition-transform group-hover:translate-x-0.5"
+                  style={{ background: "#0a0a0a" }}
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="var(--accent)"
+                    strokeWidth={2.5}
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -398,7 +424,7 @@ export default function HomePage() {
               className="w-5 h-5 rounded flex items-center justify-center"
               style={{ background: "var(--accent)" }}
             >
-              <span className="font-black text-[9px]" style={{ color: "#0d110d" }}>P</span>
+              <span className="font-black text-[9px]" style={{ color: "#0a0a0a" }}>P</span>
             </div>
             <span className="font-display text-xs font-medium" style={{ color: "var(--muted)" }}>PropFlow</span>
           </div>

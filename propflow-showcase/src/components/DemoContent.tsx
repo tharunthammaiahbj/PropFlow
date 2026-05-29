@@ -289,7 +289,7 @@ export default function DemoContent() {
             className="w-6 h-6 rounded-md flex items-center justify-center"
             style={{ background: "var(--accent)" }}
           >
-            <span className="font-black text-[10px]" style={{ color: "#0d110d" }}>P</span>
+            <span className="font-black text-[10px]" style={{ color: "#0a0a0a" }}>P</span>
           </div>
           <span className="font-display font-semibold tracking-tight text-base">PropFlow</span>
         </div>

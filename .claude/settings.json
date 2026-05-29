@@ -14,7 +14,12 @@
       "Bash(git pull *)",
       "Bash(git merge *)",
       "Bash(git commit *)",
-      "Bash(npm view *)"
+      "Bash(npm view *)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -c \"import ast; ast.parse\\(open\\('backend/intelligence/conversation_controller.py'\\).read\\(\\)\\); print\\('Syntax OK'\\)\")",
+      "Bash(git revert *)",
+      "Read(//c/Users/Tharun Thammaiah.B.J/Desktop/akiraai/AkiraAI-main/**)",
+      "Read(//c/Users/Tharun Thammaiah.B.J/Desktop/akiraai/portfolio-demo/app/**)"
     ],
     "additionalDirectories": [
       "c:\\Users\\Tharun Thammaiah.B.J\\.claude\\projects\\c--Users-Tharun-Thammaiah-B-J-Desktop-PropFlow\\memory",
