@@ -145,7 +145,7 @@ export default function HomePage() {
       </nav>
 
       {/* ── Hero ──────────────────────────────────── */}
-      <section className="relative pt-28 pb-24 px-6 overflow-hidden">
+      <section className="relative pt-20 pb-16 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-grid pointer-events-none" />
         <div className="absolute inset-0 hero-glow pointer-events-none" />
         {/* Soft ambient accent blob */}
@@ -160,7 +160,7 @@ export default function HomePage() {
 
         <div className="relative max-w-6xl mx-auto">
           {/* Label row */}
-          <div className="flex items-center gap-3 mb-8 fade-up">
+          <div className="flex items-center gap-3 mb-6 fade-up">
             <span className="mono-label" style={{ color: "var(--muted)" }}>AI Consultant Platform</span>
             <span
               className="w-8 h-px inline-block flex-shrink-0"
@@ -175,10 +175,10 @@ export default function HomePage() {
             {/* Left: copy */}
             <div>
               <h1
-                className="font-display font-bold tracking-tight mb-8 fade-up-2"
+                className="font-display font-bold tracking-tight mb-6 fade-up-2"
                 style={{
-                  fontSize: "clamp(2.9rem, 5.5vw, 5.25rem)",
-                  lineHeight: 1.06,
+                  fontSize: "clamp(2.2rem, 4vw, 3.75rem)",
+                  lineHeight: 1.08,
                   color: "var(--text)",
                 }}
               >
@@ -188,7 +188,7 @@ export default function HomePage() {
               </h1>
 
               <p
-                className="font-reading text-[1.15rem] leading-relaxed mb-12 fade-up-3"
+                className="font-reading text-base leading-relaxed mb-8 fade-up-3"
                 style={{ color: "rgba(244,244,239,0.7)", maxWidth: "37rem" }}
               >
                 PropFlow handles WhatsApp and voice calls as a named consultant. Structured
