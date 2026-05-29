@@ -88,28 +88,40 @@ function InfoPanel() {
 
       <p className="mono-label mb-2" style={{ color: "var(--muted)" }}>AI Consultant</p>
       <h1
-        className="font-display font-semibold text-base mb-2.5 leading-snug"
+        className="font-display font-bold text-2xl mb-3 leading-[1.15]"
         style={{ color: "var(--text)" }}
       >
         Talk to Jessica
       </h1>
-      <p className="text-xs leading-relaxed mb-5" style={{ color: "var(--muted)", lineHeight: "1.65" }}>
+      <p
+        className="font-reading text-sm leading-relaxed mb-6"
+        style={{ color: "var(--muted-strong)", lineHeight: "1.65" }}
+      >
         Jessica is PropFlow&apos;s AI consultant. She handles all services and collects
         everything your team needs through natural conversation.
       </p>
 
-      <div className="space-y-2.5 mb-5">
+      <div className="space-y-3 mb-6">
         {[
-          "Collects project type, city, area, budget, timeline & more",
-          "Handles pricing guardrails & off-topic messages gracefully",
-          "Same AI that runs on WhatsApp and live phone calls",
-          "Conversation saved in your browser — refresh safely",
+          "Collects project, area, budget & timeline",
+          "Handles pricing guardrails gracefully",
+          "Same AI on WhatsApp and voice calls",
+          "Conversation saved — refresh safely",
         ].map((item) => (
-          <div key={item} className="flex gap-2 items-start">
-            <span className="mt-px flex-shrink-0 text-xs font-bold" style={{ color: "var(--accent)", opacity: 0.8 }}>
-              ✓
-            </span>
-            <span className="text-xs leading-relaxed" style={{ color: "var(--muted)" }}>
+          <div key={item} className="flex gap-2.5 items-start">
+            <svg
+              className="w-4 h-4 mt-0.5 flex-shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--accent)"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M8 12l3 3 5-6" />
+            </svg>
+            <span className="text-sm leading-relaxed" style={{ color: "var(--muted-strong)" }}>
               {item}
             </span>
           </div>
@@ -305,7 +317,7 @@ export default function DemoContent() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-6xl mx-auto w-full px-4 py-5 gap-4 relative z-10">
 
         {/* Left panel — transforms on completion */}
-        <div className="lg:w-60 flex-shrink-0 overflow-y-auto chat-scroll">
+        <div className="lg:w-72 flex-shrink-0 overflow-y-auto chat-scroll">
           {briefFields ? (
             <CompletionPanel fields={briefFields} createdAt={createdAt} />
           ) : (
