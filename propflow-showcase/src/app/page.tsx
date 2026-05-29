@@ -46,7 +46,7 @@ function ProjectBriefCard() {
             >
               {f.label}
             </span>
-            <span className="text-[0.78rem] leading-snug" style={{ color: "var(--text)" }}>
+            <span className="text-[0.78rem] leading-snug tabular-nums" style={{ color: "var(--text)" }}>
               {f.value}
             </span>
           </div>
@@ -148,6 +148,8 @@ export default function HomePage() {
       <section className="relative pt-28 pb-24 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-grid pointer-events-none" />
         <div className="absolute inset-0 hero-glow pointer-events-none" />
+        {/* Soft ambient accent blob */}
+        <div className="accent-glow-blob" style={{ top: "-12rem", right: "-10rem" }} />
         {/* Subtle bottom glow-line */}
         <div
           className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[28rem] h-px pointer-events-none"
@@ -374,7 +376,7 @@ export default function HomePage() {
               className="font-display font-bold tracking-tight mb-5 leading-tight"
               style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
             >
-              See it in action.
+              See it in <span className="accent-italic">action.</span>
             </h2>
             <p
               className="font-reading text-lg leading-relaxed mb-10"

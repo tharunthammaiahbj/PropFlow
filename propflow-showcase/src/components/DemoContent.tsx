@@ -207,7 +207,7 @@ function CompletionPanel({
             >
               {FIELD_LABELS[key] || key.replace(/_/g, " ")}
             </span>
-            <span className="text-xs leading-relaxed" style={{ color: "var(--text)" }}>
+            <span className="text-xs leading-relaxed tabular-nums" style={{ color: "var(--text)" }}>
               {value}
             </span>
           </div>
@@ -268,10 +268,10 @@ export default function DemoContent() {
       style={{ background: "var(--bg)", color: "var(--text)" }}
     >
       {/* Nav */}
-      <nav className="nav-blur flex-shrink-0 px-6 h-14 flex items-center justify-between">
+      <nav className="nav-blur flex-shrink-0 px-6 h-14 grid grid-cols-3 items-center">
         <Link
           href="/"
-          className="flex items-center gap-2 text-sm transition-opacity hover:opacity-70"
+          className="flex items-center gap-2 text-sm transition-opacity hover:opacity-70 justify-self-start"
           style={{ color: "var(--muted)" }}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -279,7 +279,7 @@ export default function DemoContent() {
           </svg>
           Back
         </Link>
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2.5 justify-self-center">
           <div
             className="w-6 h-6 rounded-md flex items-center justify-center"
             style={{ background: "var(--accent)" }}
@@ -288,7 +288,12 @@ export default function DemoContent() {
           </div>
           <span className="font-display font-semibold tracking-tight text-base">PropFlow</span>
         </div>
-        <div className="w-16" />
+        <span
+          className="mono-label justify-self-end"
+          style={{ color: "var(--muted)" }}
+        >
+          Demo
+        </span>
       </nav>
 
       {/* Body */}
